@@ -88,29 +88,37 @@ function WeekView() {
                 <TimeSlotGroup
                     key={time}
                     time={time}
-                    events={events[time]}
+                    /* events={events[time]} */
                     weekDays={weekDays}
                     openAddEventModal={handleOpenAdd}
                     eventStart={eventStart}
                     eventEnd={eventEnd}
                     onTimeChange={onCurrentEventTimeChange}
                 >
-                    {events[time] &&
+                    {
                         events.map(
                             event =>
-                                event.startWeek <= moment(startDate).week() &&
-                                event.endWeek >= moment(startDate).week() &&
-                                <EventHighlighter
-                                    key={event.title + event.end + event.start}
-                                    startDate={startDate}
-                                    eventStart={eventStart}
-                                    eventEnd={eventEnd}
-                                    onTimeChange={onCurrentEventTimeChange}
-                                    event={event}
+                                (() => {
 
-                                />
+                                    if (time === event.time) {
 
+                                        return (
+                                            event.startWeek <= moment(startDate).week() &&
+                                            event.endWeek >= moment(startDate).week() &&
+                                            <EventHighlighter
+                                                key={event.title + event.end + event.start}
+                                                startDate={startDate}
+                                                eventStart={eventStart}
+                                                eventEnd={eventEnd}
+                                                onTimeChange={onCurrentEventTimeChange}
+                                                event={event}
+
+                                            />
+                                        )
+                                    }
+                                })()
                         )}
+
 
                 </TimeSlotGroup>
 
