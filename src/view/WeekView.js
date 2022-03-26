@@ -111,7 +111,9 @@ function WeekView() {
                                 />
 
                         )}
+
                 </TimeSlotGroup>
+
             ))}
         </div>
     )

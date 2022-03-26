@@ -34,7 +34,7 @@ function EventHighlighter(props) {
                         props.event,
                         props.startDate
                     ),
-                    top: (parseInt(props.event.time) - 1) * 100 + '%',
+                    top: (parseInt(props.event.time)) * 100 + '%',
                     ...eventHighlighter,
                 }}
             >

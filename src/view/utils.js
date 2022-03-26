@@ -20,7 +20,7 @@ export const getAllDaysInTheWeek = (currentDate = moment()) => {
 
 // All the hours in the day
 export const times = [
-
+    0,
     1,
     2,
     3,
