@@ -1,0 +1,90 @@
+import React, { useState } from 'react';
+import { Input, DatePicker } from 'antd';
+import EditIcon from '@mui/icons-material/Edit';
+import moment from 'moment';
+import { Typography, Select, MenuItem } from "@mui/material";
+import { kitchenStatuses } from '../enum';
+import crud from '../api/crud';
+import Button from '@mui/material/Button';
+const { RangePicker } = DatePicker;
+
+function EditEvent(props) {
+    const kitchen_statuses = kitchenStatuses()
+    const [title, setTitle] = useState('')
+    const [kitchen_Id, setId] = useState('')
+    const [description, setDescription] = useState('')
+    const [username, setUsername] = useState('')
+    const [cost, setCost] = useState('')
+    const [status, setStatus] = useState('')
+
+
+    const updateBooking = () => {
+
+        crud.put(`/post/${props.event.id}`, {
+
+            id: '',
+            title: title === '' ? props.event.title : title,
+            description: description === '' ? props.event.description : description,
+            status: status === null ? props.event.status : status,
+            member: username === '' ? props.event.member : username,
+            start: props.start,
+            end: props.end,
+            kitchen_id: kitchen_Id === '' ? props.event.kitchen_id : kitchen_Id,
+            total_fee: cost === '' ? props.event.total_fee : cost,
+            startWeek: moment(props.start).week(),
+            endWeek: moment(props.end).week(),
+            time: moment(props.start).hours()
+
+        })
+        setTitle('')
+        setId('')
+        setDescription('')
+        setUsername('')
+        setCost('')
+        setStatus('')
+        props.onClose()
+    }
+
+
+
+    return (
+        <React.Fragment>
+            <Typography align="center" variant="h6" style={{ color: "#5DB6CE" }}>Update Booking</Typography>
+            <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder={props.event.title} label="Enter Kitchen Name" style={{ margin: '1%' }} autoFocus={true} />
+            <Input value={kitchen_Id} onChange={(e) => setId(e.target.value)} placeholder={props.event.kitchen_id} label="Kitchen ID" variant="outlined" style={{ margin: '1%' }} />
+            <Input value={description} onChange={(e) => setDescription(e.target.value)} placeholder={props.event.description} label="Kitchen Description" type="text" variant="outlined" style={{ margin: '1%' }} />
+            <Input value={username} onChange={(e) => setUsername(e.target.value)} placeholder={props.event.member} label="Username" variant="outlined" style={{ margin: '1%' }} />
+            <Input value={cost} onChange={(e) => setCost(e.target.value)} placeholder={props.event.total_fee} label="Cost" type="number" variant="outlined" style={{ margin: '1%' }} />
+            <Select
+                value={status ? status : props.event.status}
+                label="Status"
+                variant="outlined"
+                onChange={(e) => setStatus(e.target.value)}
+                style={{ margin: '1%', color: '#aaa', width: '100%' }}
+
+            >
+                <MenuItem value="default"  > -- Status -- </MenuItem>
+                {
+                    Object.keys(kitchen_statuses).map((status) => <MenuItem key={status} value={kitchen_statuses[status].value} >{kitchen_statuses[status].label}</MenuItem>)
+                }
+
+            </Select>
+
+            <RangePicker
+                style={{ width: '100%', margin: '1%' }}
+                value={[moment(props.event.start), moment(props.event.end)]}
+                onChange={(e) => props.onTimeChange(e)}
+                showTime={{
+                    format: 'HH:mm',
+                    hourStep: 1,
+                    minuteStep: 30,
+                    defaultValue: [moment(props.start), moment(props.end)],
+                }}
+                format="MMM Do, YYYY hh:mm a"
+            />
+            <Button startIcon={<EditIcon />} style={{ backgroundColor: '#5DB6CE', color: '#fff', margin: '1%', width: '100%' }} onClick={updateBooking} >Update</Button>
+        </React.Fragment>
+    )
+}
+
+export default EditEvent
