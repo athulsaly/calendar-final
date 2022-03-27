@@ -53,7 +53,7 @@ function AddEvent(props) {
         <React.Fragment>
             <Typography align="center" variant="h6" style={{ color: "#5DB6CE" }}>Create Booking</Typography>
             <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Enter Kitchen Name" style={{ margin: '1%' }} autoFocus={true} />
-            <Input value={kitchen_Id} onChange={(e) => setId(e.target.value)} placeholder="Kitchen ID" label="Kitchen ID" variant="outlined" style={{ margin: '1%' }} />
+            <Input value={kitchen_Id} onChange={(e) => setId(e.target.value)} type="number" placeholder="Kitchen ID" label="Kitchen ID" variant="outlined" style={{ margin: '1%' }} />
             <Input value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description" label="Kitchen Description" type="text" variant="outlined" style={{ margin: '1%' }} />
             <Input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="User Name" label="Username" variant="outlined" style={{ margin: '1%' }} />
             <Input value={cost} onChange={(e) => setCost(e.target.value)} placeholder="Cost" label="Cost" type="number" variant="outlined" style={{ margin: '1%' }} />
@@ -75,7 +75,7 @@ function AddEvent(props) {
             <RangePicker
                 style={{ width: '100%', margin: '1%' }}
                 value={[moment(props.start), moment(props.end)]}
-                onChange={props.onTimeChange}
+                onChange={(e) => props.onTimeChange(e)}
                 showTime={{
                     format: 'HH:mm',
                     hourStep: 1,

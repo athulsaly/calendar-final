@@ -3,6 +3,16 @@ import moment from 'moment'
 import { generateWeekViewCoordinates } from '../utils'
 import { eventHighlighter } from '../../styles'
 import EditEventModal from './EditEventModal'
+function generateRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var randomColor = '#';
+    for (var i = 0; i < 6; i++) {
+        randomColor += letters[Math.floor(Math.random() * 16)];
+    }
+    const color = randomColor === '#ffffff' ? generateRandomColor() : randomColor;
+    return color;
+
+}
 
 function EventHighlighter(props) {
     /*     const [eventNewStart, setNewStart] = useState(null)
@@ -23,8 +33,8 @@ function EventHighlighter(props) {
                 open={showDialogEdit}
                 onClose={handleCloseEdit}
                 onClick={handleOpenEdit}
-                start={props.eventStart}
-                end={props.eventEnd}
+                /* start={props.eventStart}
+                end={props.eventEnd} */
                 onTimeChange={props.onTimeChange}
             />
             <div
@@ -36,6 +46,8 @@ function EventHighlighter(props) {
                     ),
                     top: '1%',
                     ...eventHighlighter,
+                    backgroundColor: generateRandomColor(),
+                    opacity: 0.7,
                 }}
             >
                 {props.event.title} <br />

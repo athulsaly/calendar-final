@@ -1,8 +1,10 @@
 import React from 'react'
 import Button from '@mui/material/Button';
 import crud from '../api/crud';
-import { Modal } from 'antd';
+import { Modal, Row } from 'antd';
 import EditEvent from './EditEvent';
+import { Delete } from '@mui/icons-material';
+
 
 
 function EditEventModal(props) {
@@ -16,15 +18,17 @@ function EditEventModal(props) {
     return (
         <Modal visible={props.open} onCancel={props.onClose}
             footer={[
-                <Button key="back" onClick={() => onDelete()}>Delete</Button>,
-
+                <Row align='center' onClick={() => onDelete()}>
+                    <Delete fontSize='medium' />
+                    <Button key="back" >Delete</Button>,
+                </Row>
             ]}
         >
 
             <EditEvent
                 event={props.event}
-                start={props.start}
-                end={props.end}
+                /*  start={props.start}
+                 end={props.end} */
                 onTimeChange={props.onTimeChange}
                 onClose={props.onClose}
             />

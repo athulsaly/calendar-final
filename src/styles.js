@@ -1,3 +1,4 @@
+
 export const col = {
     border: '#e0e0e0 1px solid',
 };
@@ -90,7 +91,7 @@ export const lightHighlighter = {
 
 export const eventHighlighter = {
     position: 'absolute',
-    backgroundColor: '#b3e1f7',
+    /* backgroundColor: generateRandomColor(), */
     border: '1px solid #81cdf2',
     borderRadius: '4px',
     color: 'white',

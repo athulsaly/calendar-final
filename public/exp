@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Input, DatePicker } from 'antd';
 import EditIcon from '@mui/icons-material/Edit';
 import moment from 'moment';
@@ -19,48 +19,39 @@ function EditEvent(props) {
     const [status, setStatus] = useState('')
 
     const [eventx, setEvents] = useState([])
-    const [startx, setStartx] = useState('')
-    const [endx, setEndx] = useState('')
+
     const id = props.event.id
-    const date = useRef('')
 
+    const fetchData = async () => {
+        const result = await crud.get(`/post/${id}`);
+
+        setEvents(result.data);
+    };
     useEffect(() => {
-        const fetchData = async () => {
-            const result = await crud.get('/post/' + id);
-
-            setEvents(result.data);
-        };
         fetchData();
     }, []);
+    console.log(eventx)
 
 
 
-    const timeChange = (date) => {
-        setStartx(+date[0])
-        setEndx(+date[1])
-        props.onTimeChange(date)
-
-
-    }
 
 
     const updateBooking = () => {
 
-        crud.put(`/post/${id}`, {
+        crud.put(`/post/${props.event.id}`, {
 
             id: eventx.id,
-            title: title === '' ? eventx.title : title,
-            description: description === '' ? eventx.description : description,
-            status: status === '' ? eventx.status : status,
-            member: username === '' ? eventx.member : username,
-            start: startx === '' ? props.event.start : startx,
-            end: endx === '' ? props.event.end : endx,
-            kitchen_id: kitchen_Id === '' ? eventx.kitchen_id : kitchen_Id,
-            total_fee: cost === '' ? eventx.total_fee : cost,
-            startWeek: startx === '' ? moment(props.event.start).week() : moment(startx).week(),
-            endWeek: endx === '' ? moment(props.event.end).week() : moment(endx).week(),
-            time: startx === '' ? moment(props.event.start).hours() : moment(startx).hours()
-
+            title: title === '' ? props.event.title : eventx.title,
+            description: description === '' ? props.event.description : eventx.description,
+            status: status === null ? props.event.status : eventx.status,
+            member: username === '' ? props.event.member : eventx.member,
+            start: props.start,
+            end: props.end,
+            kitchen_id: kitchen_Id === '' ? props.event.kitchen_id : eventx.kitchen_id,
+            total_fee: cost === '' ? props.event.total_fee : eventx.total_fee,
+            startWeek: moment(props.start).week(),
+            endWeek: moment(props.end).week(),
+            time: moment(props.start).hours()
 
         })
         setTitle('')
@@ -69,9 +60,6 @@ function EditEvent(props) {
         setUsername('')
         setCost('')
         setStatus('')
-        eventx('')
-        setStartx('')
-        setEndx('')
         props.onClose()
     }
 
@@ -102,8 +90,8 @@ function EditEvent(props) {
 
             <RangePicker
                 style={{ width: '100%', margin: '1%' }}
-                value={startx === '' ? [moment(props.event.start), moment(props.event.end)] : [moment(startx), moment(endx)]}
-                onChange={(date) => timeChange(date)}
+                value={[moment(props.event.start), moment(props.event.end)]}
+                onChange={(e) => props.onTimeChange(e)}
                 showTime={{
                     format: 'HH:mm',
                     hourStep: 1,
