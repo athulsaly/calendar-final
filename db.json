@@ -1,0 +1,74 @@
+{
+  "post": [
+    {
+      "id": 1,
+      "title": "Denzil's Kitchen",
+      "description": "Denzil's booking #1",
+      "status": "Confirmed",
+      "member": "Denzil George",
+      "start": 1648405800000,
+      "end": 1648411200000,
+      "kitchen_id": "101",
+      "total_fee": "199",
+      "startWeek": 14,
+      "endWeek": 14,
+      "time": 0
+    },
+    {
+      "id": 2,
+      "title": "Hassan's Kitchen",
+      "description": "Hassan's booking #3",
+      "status": "Completed",
+      "member": "Hassan Badru",
+      "start": 1648589400000,
+      "end": 1648600200000,
+      "kitchen_id": "102",
+      "total_fee": "199",
+      "startWeek": 14,
+      "endWeek": 14,
+      "time": 3
+    },
+    {
+      "id": 3,
+      "title": "Athul's Kitchen",
+      "description": "Athul's booking #4",
+      "status": "Canceled",
+      "member": "Athul Saly",
+      "start": 1648355400000,
+      "end": 1648362600000,
+      "kitchen_id": "103",
+      "total_fee": "199",
+      "startWeek": 14,
+      "endWeek": 14,
+      "time": 10
+    },
+    {
+      "id": 4,
+      "title": "Flavours",
+      "description": "Flavours' booking #9",
+      "status": "Created",
+      "member": "Flavours",
+      "start": 1648783800000,
+      "end": 1648798200000,
+      "kitchen_id": "104",
+      "total_fee": "199",
+      "startWeek": 14,
+      "endWeek": 14,
+      "time": 9
+    },
+    {
+      "id": 5,
+      "title": "Spice Hub",
+      "description": "Spice Hub booking #6",
+      "status": "Confirmed",
+      "member": "Spice Guy",
+      "start": 1648729800000,
+      "end": 1648733400000,
+      "kitchen_id": "105",
+      "total_fee": "200",
+      "startWeek": 14,
+      "endWeek": 14,
+      "time": 18
+    }
+  ]
+}
