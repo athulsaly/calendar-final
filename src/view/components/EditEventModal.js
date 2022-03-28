@@ -18,9 +18,9 @@ function EditEventModal(props) {
     return (
         <Modal visible={props.open} onCancel={props.onClose}
             footer={[
-                <Row align='center' onClick={() => onDelete()}>
-                    <Delete fontSize='medium' />
-                    <Button key="back" >Delete</Button>,
+                <Row justify='space evenly' align='middle' onClick={() => onDelete()}>
+                    <Delete color='primary' />
+                    <Button key="back" >Delete</Button>
                 </Row>
             ]}
         >

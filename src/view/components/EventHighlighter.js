@@ -4,10 +4,10 @@ import { generateWeekViewCoordinates } from '../utils'
 import { eventHighlighter } from '../../styles'
 import EditEventModal from './EditEventModal'
 function generateRandomColor() {
-    var letters = '0123456789ABCDEF';
+    /*     var letters = '0123456789ABCDEF'; */
     var randomColor = '#';
-    for (var i = 0; i < 6; i++) {
-        randomColor += letters[Math.floor(Math.random() * 16)];
+    for (var i = 0; i < 3; i++) {
+        randomColor += ("0" + Math.floor(Math.random() * Math.pow(16, 2) / 2).toString(16)).slice(-2);
     }
     const color = randomColor === '#ffffff' ? generateRandomColor() : randomColor;
     return color;
@@ -47,7 +47,7 @@ function EventHighlighter(props) {
                     top: '1%',
                     ...eventHighlighter,
                     backgroundColor: generateRandomColor(),
-                    opacity: 0.7,
+                    opacity: 0.65,
                 }}
             >
                 {props.event.title} <br />

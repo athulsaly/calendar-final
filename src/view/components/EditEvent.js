@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Input, DatePicker } from 'antd';
 import EditIcon from '@mui/icons-material/Edit';
 import moment from 'moment';
@@ -17,12 +17,11 @@ function EditEvent(props) {
     const [username, setUsername] = useState('')
     const [cost, setCost] = useState('')
     const [status, setStatus] = useState('')
-
     const [eventx, setEvents] = useState([])
     const [startx, setStartx] = useState('')
     const [endx, setEndx] = useState('')
     const id = props.event.id
-    const date = useRef('')
+
 
     useEffect(() => {
         const fetchData = async () => {
