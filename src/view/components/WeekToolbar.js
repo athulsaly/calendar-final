@@ -28,7 +28,7 @@ function WeekToolbar(props) {
             <Circle sx={{ color: '#FF0009' }} style={appTitle} />&nbsp;Canceled&nbsp;&nbsp;&nbsp;
             <Circle sx={{ color: '#00FF39' }} style={appTitle} />&nbsp;Completed&nbsp;&nbsp;&nbsp;
 
-            <Col span={2} offset={4} style={alignRight} >
+            <Col span={5} /* offset={2} */ style={alignRight} >
                 <ButtonGroup>
                     <Button onClick={props.goToPreviousWeek} startIcon={<NavigateBefore />} />
                     <Tooltip placement="topLeft" title={moment().format('dddd, MMM D')}>
