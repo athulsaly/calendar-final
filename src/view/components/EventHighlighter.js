@@ -25,15 +25,20 @@ function generateRandomColor(event) {
         return '#c90bf4'
 }
 
+
 function EventHighlighter(props) {
+
 
     const [showDialogEdit, setEdit] = useState(false)
     const handleOpenEdit = () => {
         setEdit(true)
     }
     const handleCloseEdit = () => {
+
         setEdit(false)
+
     }
+
 
 
     return (
@@ -46,6 +51,7 @@ function EventHighlighter(props) {
                 /* start={props.eventStart}
                 end={props.eventEnd} */
                 onTimeChange={props.onTimeChange}
+
             />
             <div
                 onClick={handleOpenEdit}
@@ -61,12 +67,22 @@ function EventHighlighter(props) {
                 }}
             >
                 {props.event.title} <br />
-                <span style={{ fontSize: 10 }}>
+                <span style={{ fontSize: 11 }}>
                     {moment(props.event.start).format('hh:mm a')}
                     {' '}
                     -
                     {' '}
                     {moment(props.event.end).format('hh:mm a')}
+                    <br />
+                    Description: {props.event.description}
+                    <br />
+                    Cost: {props.event.total_fee}
+                    <br />
+                    Status: {props.event.status}
+                    <br />
+                    User: {props.event.member}
+                    <br />
+                    Date: {moment(props.event.start).format('DD dddd MMMM YYYY')}
                 </span>
             </div>
         </React.Fragment >

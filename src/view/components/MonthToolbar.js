@@ -1,25 +1,22 @@
 import React from 'react';
-import { Row, Col, Tooltip } from 'antd';
-import { CalendarMonth, Circle, NavigateBefore, NavigateNext } from '@mui/icons-material';
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
+import { Row, Col } from 'antd';
+import { CalendarMonth, Circle } from '@mui/icons-material';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import ViewModuleIcon from '@mui/icons-material/ViewModule';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import {
     toolbar,
-    toolbarDate,
     appTitle,
-    alignRight,
     spacify
 } from '../../styles';
-import moment from 'moment';
+import { Typography } from '@mui/material';
+
+import { Tooltip } from 'antd';
 
 
+function MonthToolbar(props) {
 
-function WeekToolbar(props) {
-    const formattedDate = moment(props.startDate).format('MMM YYYY')
     const [view, setView] = React.useState('list');
 
     const handleChange = (event, nextView) => {
@@ -36,8 +33,8 @@ function WeekToolbar(props) {
 
     }
     return (
-        <Row justify='center' type="flex" gutter={4} style={toolbar}>
-            <Col span={6} offset={3} style={appTitle}>
+        <Row justify='space-evenly' type="flex" gutter={4} style={toolbar}>
+            <Col span={10} offset={3} style={appTitle}>
                 <CalendarMonth style={spacify} fontSize="medium" />Booking Calendar
                 &nbsp;&nbsp;&nbsp;
                 <ToggleButtonGroup
@@ -60,28 +57,16 @@ function WeekToolbar(props) {
                 </ToggleButtonGroup>
             </Col>
 
-
+            <Col /* span={6} */ offset={3} />
             <Circle sx={{ color: '#FF8F00' }} style={appTitle} />&nbsp;Created&nbsp;&nbsp;&nbsp;
             <Circle sx={{ color: '#787C87' }} style={appTitle} />&nbsp;Pending&nbsp;&nbsp;&nbsp;
             <Circle sx={{ color: '#29D6D0' }} style={appTitle} />&nbsp;Confirmed&nbsp;&nbsp;&nbsp;
             <Circle sx={{ color: '#FF0009' }} style={appTitle} />&nbsp;Canceled&nbsp;&nbsp;&nbsp;
             <Circle sx={{ color: '#00FF39' }} style={appTitle} />&nbsp;Completed&nbsp;&nbsp;&nbsp;
 
-            <Col span={5} /* offset={2} */ style={alignRight} >
-                <ButtonGroup>
-                    <Button onClick={props.goToPreviousWeek} startIcon={<NavigateBefore />} />
-                    <Tooltip placement="topLeft" title={moment().format('dddd, MMM D')}>
-                        <Button onClick={props.goToToday} /* variant="contained" */>Today</Button>
-                    </Tooltip>
-                    <Button onClick={props.goToNextWeek} icon="right" endIcon={<NavigateNext />} />
-                </ButtonGroup>
-            </Col>
-
-            <Col /* span={2} */ offset={1} style={toolbarDate}>
-                {formattedDate}
-            </Col>
+            <Typography>{/* <b>SELECT THE MONTH</b> */}</Typography>
         </Row >
     )
 }
 
-export default WeekToolbar
+export default MonthToolbar

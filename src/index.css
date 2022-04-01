@@ -9,3 +9,31 @@ body {
 .anticon.anticon-cross-circle.ant-calendar-picker-clear {
   display: none;
 }
+
+.events .ant-badge-status {
+  background: #189AB4;
+  color: white;
+  opacity: 1;
+
+
+}
+
+.ant-badge {
+  box-shadow: 0px 2px 4px 0px grey;
+}
+
+.ant-badge-status-text {
+  color: white;
+  padding-right: 10px;
+  font-size: 15px;
+}
+
+.ant-picker-calendar-full .ant-picker-panel .ant-picker-calendar-date-content {
+  text-align: right;
+  width: auto;
+}
+
+div.ant-radio-group.ant-radio-group-outline.ant-picker-calendar-mode-switch {
+  display: none;
+
+}

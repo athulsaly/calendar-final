@@ -19,6 +19,13 @@ export const container = {
     paddingTop: '2em',
     paddingBottom: '2em',
 };
+export const containerx = {
+
+    paddingLeft: '10em',
+
+    paddingBottom: '2em',
+
+};
 
 export const weekDates = {
     fontSize: 40,
@@ -100,3 +107,11 @@ export const eventHighlighter = {
     zIndex: 1,
     cursor: 'pointer',
 };
+
+
+export const eventx = {
+    margin: 0,
+    padding: 0,
+
+
+}

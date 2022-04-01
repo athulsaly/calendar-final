@@ -12,7 +12,7 @@ const { RangePicker } = DatePicker;
 function EditEvent(props) {
     const kitchen_statuses = kitchenStatuses()
     const [title, setTitle] = useState('')
-    const [kitchen_Id, setId] = useState('')
+    /*  const [kitchen_Id, setId] = useState('') */
     const [description, setDescription] = useState('')
     const [username, setUsername] = useState('')
     const [cost, setCost] = useState('')
@@ -44,7 +44,7 @@ function EditEvent(props) {
 
 
     const updateBooking = () => {
-
+        props.onClose()
         crud.put(`/post/${id}`, {
 
             id: eventx.id,
@@ -54,7 +54,8 @@ function EditEvent(props) {
             member: username === '' ? eventx.member : username,
             start: startx === '' ? props.event.start : startx,
             end: endx === '' ? props.event.end : endx,
-            kitchen_id: kitchen_Id === '' ? eventx.kitchen_id : kitchen_Id,
+            /* kitchen_id: kitchen_Id === '' ? eventx.kitchen_id : kitchen_Id, */
+            kitchen_id: eventx.start + eventx.title + eventx.end,
             total_fee: cost === '' ? eventx.total_fee : cost,
             startWeek: startx === '' ? moment(props.event.start).week() : moment(startx).week(),
             endWeek: endx === '' ? moment(props.event.end).week() : moment(endx).week(),
@@ -63,7 +64,7 @@ function EditEvent(props) {
 
         })
         setTitle('')
-        setId('')
+        /*         setId('') */
         setDescription('')
         setUsername('')
         setCost('')
@@ -71,7 +72,7 @@ function EditEvent(props) {
         eventx('')
         setStartx('')
         setEndx('')
-        props.onClose()
+
     }
 
 
@@ -80,7 +81,7 @@ function EditEvent(props) {
         <React.Fragment>
             <Typography align="center" variant="h6" style={{ color: "#5DB6CE" }}>Update Booking</Typography>
             <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder={props.event.title} label="Enter Kitchen Name" style={{ margin: '1%' }} autoFocus={true} />
-            <Input value={kitchen_Id} onChange={(e) => setId(e.target.value)} placeholder={props.event.kitchen_id} type="number" label="Kitchen ID" variant="outlined" style={{ margin: '1%' }} />
+            {/*  <Input value={kitchen_Id} onChange={(e) => setId(e.target.value)} placeholder={props.event.kitchen_id} type="number" label="Kitchen ID" variant="outlined" style={{ margin: '1%' }} /> */}
             <Input value={description} onChange={(e) => setDescription(e.target.value)} placeholder={props.event.description} label="Kitchen Description" type="text" variant="outlined" style={{ margin: '1%' }} />
             <Input value={username} onChange={(e) => setUsername(e.target.value)} placeholder={props.event.member} label="Username" variant="outlined" style={{ margin: '1%' }} />
             <Input value={cost} onChange={(e) => setCost(e.target.value)} placeholder={props.event.total_fee} label="Cost" type="number" variant="outlined" style={{ margin: '1%' }} />

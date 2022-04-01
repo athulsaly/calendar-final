@@ -4,6 +4,7 @@ import { Modal } from 'antd';
 import AddEvent from './AddEvent';
 
 
+
 function AddEventModal(props) {
 
 
@@ -22,6 +23,7 @@ function AddEventModal(props) {
                 onTimeChange={props.onTimeChange}
                 onClose={props.onClose}
                 startDate={props.date}
+
             />
 
 

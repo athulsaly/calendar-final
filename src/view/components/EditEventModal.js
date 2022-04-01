@@ -31,6 +31,7 @@ function EditEventModal(props) {
                  end={props.end} */
                 onTimeChange={props.onTimeChange}
                 onClose={props.onClose}
+
             />
 
 
