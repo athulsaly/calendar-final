@@ -21,7 +21,10 @@ function EditEvent(props) {
     const [startx, setStartx] = useState('')
     const [endx, setEndx] = useState('')
     const id = props.event.id
-
+    function disabledDate(current) {
+        // Can not select days before today and today
+        return current && current <= moment().endOf('day');
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -102,6 +105,7 @@ function EditEvent(props) {
 
             <RangePicker
                 style={{ width: '100%', margin: '1%' }}
+                disabledDate={disabledDate}
                 value={startx === '' ? [moment(props.event.start), moment(props.event.end)] : [moment(startx), moment(endx)]}
                 onChange={(date) => timeChange(date)}
                 showTime={{

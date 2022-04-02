@@ -24,6 +24,13 @@ function AddEvent(props) {
         setEventEnd(+dates[1])
     }; */
 
+
+    function disabledDate(current) {
+        // Can not select days before today and today
+        return current && current < moment().endOf('day');
+    }
+
+
     const createBooking = () => {
 
         crud.post('/post',
@@ -76,6 +83,10 @@ function AddEvent(props) {
 
             <RangePicker
                 style={{ width: '100%', margin: '1%' }}
+                /* disabledDate={current => {
+                    return current && current < moment().add(1, "month")
+                }} */
+                disabledDate={disabledDate}
                 value={[moment(props.start), moment(props.end)]}
                 onChange={(e) => props.onTimeChange(e)}
                 showTime={{

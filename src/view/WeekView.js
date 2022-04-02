@@ -6,7 +6,7 @@ import WeekHeader from './components/WeekHeader'
 import WeekToolbar from './components/WeekToolbar'
 import { times, getAllDaysInTheWeek } from './utils';
 import moment from 'moment';
-import { container, containerx } from '../styles'
+import { container } from '../styles'
 import crud from './api/crud'
 import MonthView from './components/MonthView'
 import MonthToolbar from './components/MonthToolbar'
@@ -57,7 +57,7 @@ function WeekView() {
     const handleWeek = () => {
 
         setView('week')
-
+        goToToday()
     }
     const handleMonth = () => {
 
@@ -70,10 +70,10 @@ function WeekView() {
             changeWeek(e)
 
         }
-        else {
-            setView('week')
-            goToNextWeek()
-        }
+        /*   else {
+              setView('week')
+              goToNextWeek()
+          } */
     }
     const changeWeek = (e) => {
 

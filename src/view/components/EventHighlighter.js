@@ -39,7 +39,7 @@ function EventHighlighter(props) {
 
     }
 
-
+    const topx = moment(props.event.start).minutes().toString()
 
     return (
         <React.Fragment>
@@ -60,7 +60,7 @@ function EventHighlighter(props) {
                         props.event,
                         props.startDate
                     ),
-                    top: '1%',
+                    top: topx === '30' ? '50%' : '0%',
                     ...eventHighlighter,
                     backgroundColor: generateRandomColor(props.event),
                     opacity: 0.65,

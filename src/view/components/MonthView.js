@@ -68,9 +68,22 @@ function MonthView(props) {
         return listData;
     }
     function change(e) {
-        props.week(e)
+        let select = e.format().slice(0, 7)
+        let current = moment(+moment()).format('YYYY-MM')
+
+        if (select === current.toString()) {
+            props.week(e)
+        }
+
+
+
 
     }
+    /*   function changeVal(e) {
+          console.log(e)
+      }
+      const [val, setVal] = useState('') */
+
 
     const dateCellRender = value => {
         const listData = getListData(value);
@@ -87,7 +100,7 @@ function MonthView(props) {
 
 
     return (
-        <Calendar mode='month' dateCellRender={dateCellRender} style={containerx} onChange={change}>
+        <Calendar mode='month' dateCellRender={dateCellRender} style={containerx} onSelect={change}>
 
         </Calendar>
     )

@@ -35,10 +35,14 @@ function WeekToolbar(props) {
         else if (nextView === 'month') { props.month() }
 
     }
+    const click = () => {
+        console.log('jello')
+        window.location.reload()
+    }
     return (
         <Row justify='center' type="flex" gutter={4} style={toolbar}>
             <Col span={6} offset={3} style={appTitle}>
-                <CalendarMonth style={spacify} fontSize="medium" />Booking Calendar
+                <CalendarMonth style={spacify} fontSize="medium" onClick={click} />Booking Calendar
                 &nbsp;&nbsp;&nbsp;
                 <ToggleButtonGroup
                     size="small"
