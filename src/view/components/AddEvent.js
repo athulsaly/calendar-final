@@ -43,7 +43,7 @@ function AddEvent(props) {
                 start: props.start,
                 end: props.end,
                 kitchen_id: moment(props.start).week() + title + moment(props.start).hours(),
-                total_fee: cost === '' ? 'Not given.' : cost,
+                total_fee: cost === '' ? '0.00' : parseFloat(cost).toFixed(2),
                 startWeek: moment(props.start).week(),
                 endWeek: moment(props.end).week(),
                 time: moment(props.start).hours()

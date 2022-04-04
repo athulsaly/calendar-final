@@ -59,7 +59,7 @@ function EditEvent(props) {
             end: endx === '' ? props.event.end : endx,
             /* kitchen_id: kitchen_Id === '' ? eventx.kitchen_id : kitchen_Id, */
             kitchen_id: eventx.start + eventx.title + eventx.end,
-            total_fee: cost === '' ? eventx.total_fee : cost,
+            total_fee: cost === '' ? eventx.total_fee : parseFloat(cost).toFixed(2),
             startWeek: startx === '' ? moment(props.event.start).week() : moment(startx).week(),
             endWeek: endx === '' ? moment(props.event.end).week() : moment(endx).week(),
             time: startx === '' ? moment(props.event.start).hours() : moment(startx).hours()

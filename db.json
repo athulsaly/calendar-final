@@ -8,8 +8,8 @@
       "member": "Denzil George",
       "start": 1648405800000,
       "end": 1648409400000,
-      "kitchen_id": "101",
-      "total_fee": "199",
+      "kitchen_id": "1648405800000Denzil's Kitchen1648409400000",
+      "total_fee": "198.00",
       "startWeek": 14,
       "endWeek": 14,
       "time": 0
@@ -22,8 +22,8 @@
       "member": "Hassan Badru",
       "start": 1648589400000,
       "end": 1648594800000,
-      "kitchen_id": "102",
-      "total_fee": "199",
+      "kitchen_id": "1648589400000Hassan's Kitchen1648594800000",
+      "total_fee": "199.00",
       "startWeek": 14,
       "endWeek": 14,
       "time": 3
@@ -36,8 +36,8 @@
       "member": "Athul Saly",
       "start": 1648355400000,
       "end": 1648368000000,
-      "kitchen_id": "103",
-      "total_fee": "199",
+      "kitchen_id": "1648355400000Athul's Kitchen1648368000000",
+      "total_fee": "199.87",
       "startWeek": 14,
       "endWeek": 14,
       "time": 10
@@ -50,8 +50,8 @@
       "member": "Flavours",
       "start": 1648783800000,
       "end": 1648791000000,
-      "kitchen_id": "104",
-      "total_fee": "199",
+      "kitchen_id": "1648783800000Flavours1648791000000",
+      "total_fee": "199.00",
       "startWeek": 14,
       "endWeek": 14,
       "time": 9
@@ -64,8 +64,8 @@
       "member": "Spice Guy",
       "start": 1648729800000,
       "end": 1648735200000,
-      "kitchen_id": "105",
-      "total_fee": "200",
+      "kitchen_id": "1648729800000Spice Hub1648735200000",
+      "total_fee": "200.00",
       "startWeek": 14,
       "endWeek": 14,
       "time": 18
@@ -78,11 +78,25 @@
       "member": "UserX",
       "start": 1648936800000,
       "end": 1648945800000,
-      "kitchen_id": "1648936800000XXX1648945800000",
-      "total_fee": "299",
+      "kitchen_id": "1648936800000X Kitchen1648945800000",
+      "total_fee": "199.00",
       "startWeek": 15,
       "endWeek": 15,
       "time": 3
+    },
+    {
+      "id": 7,
+      "title": "Spicy House",
+      "description": "Spice description ",
+      "status": "Completed",
+      "member": "Spice User",
+      "start": 1649100600000,
+      "end": 1649113200000,
+      "kitchen_id": "1649100600000Spicy House1649113200000",
+      "total_fee": "299.00",
+      "startWeek": 15,
+      "endWeek": 15,
+      "time": 1
     }
   ]
 }
