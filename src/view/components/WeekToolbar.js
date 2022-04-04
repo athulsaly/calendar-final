@@ -45,7 +45,7 @@ function WeekToolbar(props) {
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         value={view}
-                        notched='false'
+                        notched="false"
                         label={view}
                         onChange={handleChange}
                     >

@@ -72,7 +72,7 @@ function EditEvent(props) {
         setUsername('')
         setCost('')
         setStatus('')
-        eventx('')
+
         setStartx('')
         setEndx('')
 
@@ -92,7 +92,7 @@ function EditEvent(props) {
                 value={status ? status : props.event.status}
                 label="Status"
                 variant="standard"
-                notched='false'
+                notched="false"
                 onChange={(e) => setStatus(e.target.value)}
                 style={{ margin: '1%', color: '#aaa', width: '100%' }}
 

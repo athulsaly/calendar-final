@@ -70,7 +70,7 @@ function AddEvent(props) {
                 value={status ? status : "default"}
                 label="Status"
                 variant="standard"
-                notched='false'
+                notched="false"
                 onChange={(e) => setStatus(e.target.value)}
                 style={{ margin: '1%', color: '#aaa', width: '100%' }}
 

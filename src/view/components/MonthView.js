@@ -53,22 +53,19 @@ function MonthView(props) {
         return listData;
     }
     function change(e) {
-        let select = e.format().slice(0, 7)
-        let current = moment(+moment()).format('YYYY-MM')
+        /*     let select = e.format().slice(0, 7)
+            let current = moment(+moment()).format('YYYY-MM') */
 
-        if (select === current.toString()) {
-            props.week(e)
-        }
-
-
-
-
+        /*   if (select === current.toString()) { */
+        props.week(e)
+        /*   } */
     }
-    /*   function changeVal(e) {
-          console.log(e)
-      }
-      const [val, setVal] = useState('') */
 
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+    };
 
     const dateCellRender = value => {
         const listData = getListData(value);
@@ -85,7 +82,7 @@ function MonthView(props) {
 
 
     return (
-        <Calendar mode='month' dateCellRender={dateCellRender} style={containerx} onSelect={change}>
+        <Calendar mode='month' dateCellRender={dateCellRender} style={containerx} onPanelChange={handleSubmit} onSelect={change}>
 
         </Calendar>
     )

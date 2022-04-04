@@ -37,7 +37,7 @@ function MonthToolbar(props) {
                         id="demo-simple-select"
                         value={view}
                         label={view}
-                        notched={false}
+                        notched="false"
                         onChange={handleChange}
                     >
                         <MenuItem value={'Week View'}>Week View</MenuItem>
