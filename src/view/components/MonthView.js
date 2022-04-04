@@ -10,33 +10,18 @@ import '../../MonthView.css'
 function MonthView(props) {
     const [events, setEvents] = useState([]);
     useEffect(() => {
-        /*   let interval */
+
         const fetchData = async () => {
             const result = await crud.get('/post');
 
             setEvents(result.data);
         };
         fetchData();
-        /* interval = setInterval(() => {
 
-            fetchData()
-
-        }, 2.5 * 1000)
-
-        return () => {
-
-            clearInterval(interval)
-
-        } */
     }, []);
+
     function generateRandomColor(event) {
-        /*      var letters = '0123456789ABCDEF';
-         var randomColor = '#';
-         for (var i = 0; i < 3; i++) {
-             randomColor += ("0" + Math.floor(Math.random() * Math.pow(16, 2) / 2).toString(16)).slice(-2);
-         }
-         const color = randomColor === '#ffffff' ? generateRandomColor() : randomColor;
-         return color; */
+
         if (event.status === 'Created')
             return '#FF8F00'
         else if (event.status === 'Pending')

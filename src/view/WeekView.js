@@ -153,7 +153,7 @@ function WeekView() {
                                         event =>
                                             (() => {
 
-                                                if (time === event.time) {
+                                                if (time === event.time && moment(event.start).format('YYYY') === moment(startDate).format('YYYY')) {
 
                                                     return (
                                                         event.startWeek <= moment(startDate).week() &&

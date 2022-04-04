@@ -91,7 +91,8 @@ function EditEvent(props) {
             <Select
                 value={status ? status : props.event.status}
                 label="Status"
-                variant="outlined"
+                variant="standard"
+                notched='false'
                 onChange={(e) => setStatus(e.target.value)}
                 style={{ margin: '1%', color: '#aaa', width: '100%' }}
 
@@ -105,6 +106,8 @@ function EditEvent(props) {
 
             <RangePicker
                 style={{ width: '100%', margin: '1%' }}
+
+                inputReadOnly={true}
                 disabledDate={disabledDate}
                 value={startx === '' ? [moment(props.event.start), moment(props.event.end)] : [moment(startx), moment(endx)]}
                 onChange={(date) => timeChange(date)}

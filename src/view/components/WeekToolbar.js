@@ -3,10 +3,6 @@ import { Row, Col, Tooltip } from 'antd';
 import { CalendarMonth, Circle, NavigateBefore, NavigateNext } from '@mui/icons-material';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import ViewListIcon from '@mui/icons-material/ViewList';
-import ViewModuleIcon from '@mui/icons-material/ViewModule';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import {
     toolbar,
     toolbarDate,
@@ -15,53 +11,49 @@ import {
     spacify
 } from '../../styles';
 import moment from 'moment';
-
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 
 function WeekToolbar(props) {
     const formattedDate = moment(props.startDate).format('MMM YYYY')
-    const [view, setView] = React.useState('list');
+    const [view, setView] = React.useState('Week View');
 
-    const handleChange = (event, nextView) => {
-        setView(nextView);
-        handleView(nextView)
 
+    const handleChange = (event) => {
+        setView(event.target.value);
+        handleView(event.target.value)
     };
     const handleView = (nextView) => {
-        if (nextView === 'week') {
+        if (nextView === 'Week View') {
 
             props.week()
         }
-        else if (nextView === 'month') { props.month() }
+        else if (nextView === 'Month View') { props.month() }
 
     }
-    const click = () => {
-        console.log('jello')
-        window.location.reload()
-    }
+
     return (
         <Row justify='center' type="flex" gutter={4} style={toolbar}>
             <Col span={6} offset={3} style={appTitle}>
-                <CalendarMonth style={spacify} fontSize="medium" onClick={click} />Booking Calendar
+                <CalendarMonth style={spacify} fontSize="medium" />Booking Calendar
                 &nbsp;&nbsp;&nbsp;
-                <ToggleButtonGroup
-                    size="small"
-                    value={view}
-                    exclusive
-                    onChange={handleChange}
-                >
-                    <ToggleButton value="week" aria-label="list">
-                        <Tooltip placement="topLeft" title={'Week View'}>
-                            <ViewListIcon />
-                        </Tooltip>
-                    </ToggleButton>
-                    <ToggleButton value="month" aria-label="module">
-                        <Tooltip placement="topRight" title={'Month View'}>
-                            <ViewModuleIcon />
-                        </Tooltip>
-                    </ToggleButton>
 
-                </ToggleButtonGroup>
+                <FormControl variant='standard' style={{ minWidth: 120 }}>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={view}
+                        notched='false'
+                        label={view}
+                        onChange={handleChange}
+                    >
+                        <MenuItem value={'Week View'}>Week View</MenuItem>
+                        <MenuItem value={'Month View'}>Month View</MenuItem>
+
+                    </Select>
+                </FormControl>
             </Col>
 
 

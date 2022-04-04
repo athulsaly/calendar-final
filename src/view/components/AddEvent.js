@@ -69,7 +69,8 @@ function AddEvent(props) {
             <Select
                 value={status ? status : "default"}
                 label="Status"
-                variant="outlined"
+                variant="standard"
+                notched='false'
                 onChange={(e) => setStatus(e.target.value)}
                 style={{ margin: '1%', color: '#aaa', width: '100%' }}
 
@@ -86,10 +87,12 @@ function AddEvent(props) {
                 /* disabledDate={current => {
                     return current && current < moment().add(1, "month")
                 }} */
+                inputReadOnly={true}
                 disabledDate={disabledDate}
                 value={[moment(props.start), moment(props.end)]}
                 onChange={(e) => props.onTimeChange(e)}
                 showTime={{
+
                     format: 'HH:mm',
                     hourStep: 1,
                     minuteStep: 30,
