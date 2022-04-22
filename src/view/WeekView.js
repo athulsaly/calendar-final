@@ -7,16 +7,19 @@ import WeekToolbar from './components/WeekToolbar'
 import { times, getAllDaysInTheWeek } from './utils';
 import moment from 'moment';
 import { container } from '../styles'
-import crud from './api/crud'
+/* import crud from './api/crud' */
 import MonthView from './components/MonthView'
 import MonthToolbar from './components/MonthToolbar'
+import axios from 'axios'
 
 
 function WeekView() {
+    let kitchen_id = '103'
     useEffect(() => {
         let interval
         const fetchData = async () => {
-            const result = await crud.get('/post');
+            const result = await axios.get(`https://yft2x0eiuc.execute-api.us-east-1.amazonaws.com/qa/kitchens/${kitchen_id}/bookings`);
+            /* const result = await crud.get(`/post`); */
 
             setEvents(result.data);
         };
@@ -110,6 +113,7 @@ function WeekView() {
     };
 
 
+
     return (
         (() => {
             if (view === 'week') {
@@ -152,12 +156,16 @@ function WeekView() {
                                     events.map(
                                         event =>
                                             (() => {
+                                                /*  console.log(event) */
+                                                let startTime = JSON.parse(event.start)
+                                                let endTime = JSON.parse(event.end)
 
-                                                if (time === event.time && moment(event.start).format('YYYY') === moment(startDate).format('YYYY')) {
+
+                                                if (time === moment(startTime).hours() && moment(startTime).format('YYYY') === moment(startDate).format('YYYY')) {
 
                                                     return (
-                                                        event.startWeek <= moment(startDate).week() &&
-                                                        event.endWeek >= moment(startDate).week() &&
+                                                        moment(startTime).week() <= moment(startDate).week() &&
+                                                        moment(endTime).week() >= moment(startDate).week() &&
                                                         <EventHighlighter
                                                             key={event.title + event.end + event.start}
                                                             startDate={startDate}

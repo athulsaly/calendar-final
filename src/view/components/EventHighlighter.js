@@ -68,11 +68,11 @@ function EventHighlighter(props) {
             >
                 {props.event.title} <br />
                 <span style={{ fontSize: 11 }}>
-                    {moment(props.event.start).format('hh:mm a')}
+                    {moment(JSON.parse(props.event.start)).format('hh:mm a')}
                     {' '}
                     -
                     {' '}
-                    {moment(props.event.end).format('hh:mm a')}
+                    {moment(JSON.parse(props.event.end)).format('hh:mm a')}
                     <br />
                     Description: {props.event.description}
                     <br />
@@ -80,9 +80,9 @@ function EventHighlighter(props) {
                     <br />
                     Status: {props.event.status}
                     <br />
-                    User: {props.event.member}
+                    User: {props.event.user_id}
                     <br />
-                    Date: {moment(props.event.start).format('DD dddd MMMM YYYY')}
+                    Date: {moment(JSON.parse(props.event.start)).format('DD dddd MMMM YYYY')}
                 </span>
             </div>
         </React.Fragment >

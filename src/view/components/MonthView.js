@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { Calendar, Badge } from 'antd'
 import { containerx } from '../../styles'
-import crud from '../api/crud';
+/* import crud from '../api/crud'; */
 import moment from 'moment';
 import '../../MonthView.css'
+import axios from 'axios';
 
 
 
 function MonthView(props) {
     const [events, setEvents] = useState([]);
+    let kitchen_id = '103'
     useEffect(() => {
 
         const fetchData = async () => {
-            const result = await crud.get('/post');
+            const result = await axios.get(`https://yft2x0eiuc.execute-api.us-east-1.amazonaws.com/qa/kitchens/${kitchen_id}/bookings`);
+            /* const result = await crud.get(`/post`); */
 
             setEvents(result.data);
         };
@@ -40,7 +43,7 @@ function MonthView(props) {
         let dateValue = value.format("yyyy/MM/DD");
 
         events.forEach(booking => {
-            if (dateValue === moment(booking.start).format("YYYY/MM/DD")) {
+            if (dateValue === moment(JSON.parse(booking.start)).format("YYYY/MM/DD")) {
                 listData.push({
                     status: generateRandomColor(booking),
                     content: booking.title,

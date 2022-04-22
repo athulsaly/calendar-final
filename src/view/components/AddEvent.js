@@ -4,9 +4,11 @@ import EditIcon from '@mui/icons-material/Edit';
 import moment from 'moment';
 import { Typography, Select, MenuItem } from "@mui/material";
 import { kitchenStatuses } from '../enum';
-import crud from '../api/crud';
+/* import crud from '../api/crud'; */
 import Button from '@mui/material/Button';
+import axios from 'axios';
 const { RangePicker } = DatePicker;
+
 
 function AddEvent(props) {
     const kitchen_statuses = kitchenStatuses()
@@ -29,24 +31,24 @@ function AddEvent(props) {
         // Can not select days before today and today
         return current && current < moment().endOf('day');
     }
-
-
+    let kitchen_id = '103';
+    /* console.log(moment(props.start)) */
     const createBooking = () => {
 
-        crud.post('/post',
+        axios.post(`https://yft2x0eiuc.execute-api.us-east-1.amazonaws.com/qa/kitchens/${kitchen_id}/bookings`,
             {
-                id: '',
-                title: title === '' ? 'Not given.' : title,
-                description: description === '' ? 'Not given.' : description,
-                status: status === null ? 'Not given.' : status,
-                member: username === '' ? 'Not given.' : username,
-                start: props.start,
-                end: props.end,
-                kitchen_id: moment(props.start).week() + title + moment(props.start).hours(),
-                total_fee: cost === '' ? '0.00' : parseFloat(cost).toFixed(2),
-                startWeek: moment(props.start).week(),
-                endWeek: moment(props.end).week(),
-                time: moment(props.start).hours()
+                /* id: '', */
+                title: title === '' ? "N/A" : title,
+                description: description === '' ? "N/A" : description,
+                status: status === null ? "N/A" : status,
+                member_id: username === '' ? "N/A" : username,
+                start: props.start.toString(),
+                end: props.end.toString(),
+                /* kitchen_id: moment(props.start).week() + title + moment(props.start).hours(), */
+                total_fee: cost === '' ? "0.00" : parseFloat(cost).toFixed(2),
+                /* startWeek: moment(props.start).week(),
+                endWeek: moment(props.end).week(), */
+                /* time: moment(props.start).hours() */
             })
         setTitle('')
         /*     setId('') */

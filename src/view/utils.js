@@ -50,8 +50,8 @@ export const times = [
 
 export const generateWeekViewCoordinates = (event, startDate) => {
 
-    const start = moment(event.start);
-    const end = moment(event.end);
+    const start = moment(JSON.parse(event.start));
+    const end = moment(JSON.parse(event.end));
     const duration = moment.duration(end.diff(start));
     const weekStart = moment(startDate);
 

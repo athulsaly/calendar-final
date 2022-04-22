@@ -4,8 +4,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import moment from 'moment';
 import { Typography, Select, MenuItem } from "@mui/material";
 import { kitchenStatuses } from '../enum';
-import crud from '../api/crud';
+/* import crud from '../api/crud'; */
 import Button from '@mui/material/Button';
+import axios from 'axios';
 const { RangePicker } = DatePicker;
 
 
@@ -28,8 +29,8 @@ function EditEvent(props) {
 
     useEffect(() => {
         const fetchData = async () => {
-            const result = await crud.get('/post/' + id);
-
+            const result = await axios.get(`https://yft2x0eiuc.execute-api.us-east-1.amazonaws.com/qa/kitchens/${props.event.kitchen_id}/bookings/${id}`);
+            /* const result = await crud.get(`/post`); */
             setEvents(result.data);
         };
         fetchData();
@@ -48,21 +49,22 @@ function EditEvent(props) {
 
     const updateBooking = () => {
         props.onClose()
-        crud.put(`/post/${id}`, {
+        axios.put(`https://yft2x0eiuc.execute-api.us-east-1.amazonaws.com/qa/kitchens/${eventx.kitchen_id}/bookings/${eventx.id}`, {
 
-            id: eventx.id,
-            title: title === '' ? eventx.title : title,
+            /* id: eventx.id, */
+            /* title: title === '' ? eventx.title : title,
             description: description === '' ? eventx.description : description,
             status: status === '' ? eventx.status : status,
-            member: username === '' ? eventx.member : username,
-            start: startx === '' ? props.event.start : startx,
-            end: endx === '' ? props.event.end : endx,
+            user_id: username === '' ? eventx.user_id : username, */
+            status: status === '' ? eventx.status : status,
+            start: startx === '' ? props.event.start : startx.toString(),
+            end: endx === '' ? props.event.end : endx.toString(),
             /* kitchen_id: kitchen_Id === '' ? eventx.kitchen_id : kitchen_Id, */
-            kitchen_id: eventx.start + eventx.title + eventx.end,
+            /*  kitchen_id: eventx.start + eventx.title + eventx.end, */
             total_fee: cost === '' ? eventx.total_fee : parseFloat(cost).toFixed(2),
-            startWeek: startx === '' ? moment(props.event.start).week() : moment(startx).week(),
+            /* startWeek: startx === '' ? moment(props.event.start).week() : moment(startx).week(),
             endWeek: endx === '' ? moment(props.event.end).week() : moment(endx).week(),
-            time: startx === '' ? moment(props.event.start).hours() : moment(startx).hours()
+            time: startx === '' ? moment(props.event.start).hours() : moment(startx).hours() */
 
 
         })
@@ -86,7 +88,7 @@ function EditEvent(props) {
             <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder={props.event.title} label="Enter Kitchen Name" style={{ margin: '1%' }} autoFocus={true} />
             {/*  <Input value={kitchen_Id} onChange={(e) => setId(e.target.value)} placeholder={props.event.kitchen_id} type="number" label="Kitchen ID" variant="outlined" style={{ margin: '1%' }} /> */}
             <Input value={description} onChange={(e) => setDescription(e.target.value)} placeholder={props.event.description} label="Kitchen Description" type="text" variant="outlined" style={{ margin: '1%' }} />
-            <Input value={username} onChange={(e) => setUsername(e.target.value)} placeholder={props.event.member} label="Username" variant="outlined" style={{ margin: '1%' }} />
+            <Input value={username} onChange={(e) => setUsername(e.target.value)} placeholder={props.event.user_id} label="Username" variant="outlined" style={{ margin: '1%' }} />
             <Input value={cost} onChange={(e) => setCost(e.target.value)} placeholder={props.event.total_fee} label="Cost" type="number" variant="outlined" style={{ margin: '1%' }} />
             <Select
                 value={status ? status : props.event.status}
@@ -109,7 +111,7 @@ function EditEvent(props) {
 
                 inputReadOnly={true}
                 disabledDate={disabledDate}
-                value={startx === '' ? [moment(props.event.start), moment(props.event.end)] : [moment(startx), moment(endx)]}
+                value={startx === '' ? [moment(JSON.parse(props.event.start)), moment(JSON.parse(props.event.end))] : [moment(startx), moment(endx)]}
                 onChange={(date) => timeChange(date)}
                 showTime={{
                     format: 'HH:mm',
