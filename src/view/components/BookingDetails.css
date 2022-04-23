@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Work+Sans&display=swap');
+
+.round {
+    border-radius: 25px;
+    background: #73AD21;
+    padding: 20px;
+    width: 200px;
+    height: 150px;
+}
+
+.infodiv {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 14px;
+    letter-spacing: 0em;
+    text-align: left;
+
+
+
+
+}
+
+.infodiv2 {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 11px;
+    color: #5DB6CE;
+    font-weight: 400;
+    line-height: 14px;
+    letter-spacing: 0em;
+    text-align: left;
+
+
+}
+
+
+.title2 {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+
+}
+
+.title3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 15px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.titlex {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #7A7A7A;
+
+}
+
+.heading1 {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: center;
+}
+
+.heading2 {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 28px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.heading3 {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.css-5f9gyn {
+    line-height: 12px;
+
+}
+
+.MuiButton-root.MuiButton-contained.MuiButton-containedPrimary.MuiButton-sizeMedium.MuiButton-containedSizeMedium.MuiButton-fullWidth.MuiButtonBase-root.css-6xmvo1-MuiButtonBase-root-MuiButton-root {
+    background-color: #5DB6CE;
+}
+
+.inputRounded .MuiOutlinedInput-root {
+    border-radius: 10px;
+    height: 5ch;
+    margin-bottom: 30px;
+}

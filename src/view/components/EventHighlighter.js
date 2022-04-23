@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import moment from 'moment'
 import { generateWeekViewCoordinates } from '../utils'
 import { eventHighlighter } from '../../styles'
-import EditEventModal from './EditEventModal'
+/* import EditEventModal from './EditEventModal' */
+import Booking from './Booking'
+
 function generateRandomColor(event) {
     /*      var letters = '0123456789ABCDEF';
      var randomColor = '#';
@@ -43,15 +45,21 @@ function EventHighlighter(props) {
 
     return (
         <React.Fragment>
-            <EditEventModal
+            {/* <EditEventModal
                 event={props.event}
                 open={showDialogEdit}
                 onClose={handleCloseEdit}
                 onClick={handleOpenEdit}
-                /* start={props.eventStart}
-                end={props.eventEnd} */
+                start={props.eventStart}
+                end={props.eventEnd}
                 onTimeChange={props.onTimeChange}
 
+            /> */}
+            <Booking
+                event={props.event}
+                open={showDialogEdit}
+                onClose={handleCloseEdit}
+                onClick={handleOpenEdit}
             />
             <div
                 onClick={handleOpenEdit}
@@ -91,3 +99,15 @@ function EventHighlighter(props) {
 
 
 export default EventHighlighter
+
+
+/* <EditEventModal
+event={props.event}
+open={showDialogEdit}
+onClose={handleCloseEdit}
+onClick={handleOpenEdit} */
+/* start={props.eventStart}
+end={props.eventEnd} */
+/* onTimeChange={props.onTimeChange}
+
+/> */
