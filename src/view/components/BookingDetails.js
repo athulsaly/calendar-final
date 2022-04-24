@@ -10,7 +10,7 @@ import InfoIcon from '@mui/icons-material/Info';
 /* import axios from 'axios'; */
 import { /* useEffect, */ useState } from 'react';
 import moment from 'moment';
-import { NoBackpackSharp } from '@mui/icons-material';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 const Img = styled('img')({
@@ -49,6 +49,7 @@ function BookingDetails(props) {
     const final = parseFloat(total) + parseFloat(service_fee)
     return (
         < Box sx={{ width: 'auto' }}>
+
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid item xs={6}>
                     <Grid>
@@ -140,8 +141,9 @@ function BookingDetails(props) {
 
 
                 <Grid item xs={6} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                    <Grid>
+                    <Grid container justifyContent='space-between'>
                         <h2 style={{ float: 'left' }} className='heading2'>Payment</h2>
+                        <CloseIcon onClick={props.onClose} style={{ cursor: "pointer" }} />
                     </Grid>
                     <Grid container spacing={2}>
                         <Grid item style={{ display: 'inline-flex' }}>
@@ -168,19 +170,22 @@ function BookingDetails(props) {
                             fullWidth
                             id="first-name"
                             className='inputRounded'
+                            label="First Name"
                         />
                         <p className='title3' >Last Name</p>
                         <TextField
                             fullWidth
                             id="last-name"
                             className='inputRounded'
+                            label="Last Name"
                         />
                         <p className='title3' >Card Number</p>
                         <TextField
                             fullWidth
                             id="card-number"
                             className='inputRounded'
-                            variant="outlined"
+
+                            label="Card Number"
                         />
 
                     </Box>
@@ -192,7 +197,7 @@ function BookingDetails(props) {
                                     fullWidth
                                     id="expiration"
                                     className='inputRounded'
-
+                                    label="Expiration"
 
                                 />
 
@@ -205,6 +210,7 @@ function BookingDetails(props) {
                                     id="cvv"
                                     type='password'
                                     autoComplete='disabled'
+                                    label='CVV'
                                 />
                             </Grid>
                         </Grid>

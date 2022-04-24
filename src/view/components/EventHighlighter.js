@@ -88,7 +88,7 @@ function EventHighlighter(props) {
                     <br />
                     Status: {props.event.status}
                     <br />
-                    User: {props.event.user_id}
+                    User: {props.event.member_id}
                     <br />
                     Date: {moment(JSON.parse(props.event.start)).format('DD dddd MMMM YYYY')}
                 </span>
