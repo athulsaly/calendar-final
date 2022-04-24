@@ -14,9 +14,10 @@ import axios from 'axios'
 
 
 function WeekView() {
-    let kitchen_id = '103'
+
     useEffect(() => {
         let interval
+        let kitchen_id = '103'
         const fetchData = async () => {
             const result = await axios.get(`https://yft2x0eiuc.execute-api.us-east-1.amazonaws.com/qa/kitchens/${kitchen_id}/bookings`);
             /* const result = await crud.get(`/post`); */
