@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Input, DatePicker } from 'antd';
 import EditIcon from '@mui/icons-material/Edit';
 import moment from 'moment';
-import { Typography, Select, MenuItem } from "@mui/material";
+import { Typography, Select, MenuItem, Autocomplete, TextField } from "@mui/material";
 import { kitchenStatuses } from '../enum';
 /* import crud from '../api/crud'; */
 import Button from '@mui/material/Button';
@@ -11,13 +11,15 @@ const { RangePicker } = DatePicker;
 
 
 function AddEvent(props) {
+    const users = ["Athul", "Hassan", "Denzil"]
     const kitchen_statuses = kitchenStatuses()
-    const [title, setTitle] = useState('')
-    /*   const [kitchen_Id, setId] = useState('') */
-    const [description, setDescription] = useState('')
+    /* const [title, setTitle] = useState('')
+      const [kitchen_Id, setId] = useState('')
+    const [description, setDescription] = useState('') */
     const [username, setUsername] = useState('')
     const [cost, setCost] = useState('')
     const [status, setStatus] = useState('')
+    const [value, setValue] = useState(users[0])
     /* const [eventStart, setEventStart] = useState(null);
     const [eventEnd, setEventEnd] = useState(null);
     const onTimeChange = (dates) => {
@@ -31,17 +33,19 @@ function AddEvent(props) {
         // Can not select days before today and today
         return current && current < moment().endOf('day');
     }
-    let kitchen_id = '103';
+    let kitchen_id = '105';
     /* console.log(moment(props.start)) */
     const createBooking = () => {
 
         axios.post(`https://yft2x0eiuc.execute-api.us-east-1.amazonaws.com/qa/kitchens/${kitchen_id}/bookings`,
             {
                 /* id: '', */
-                title: title === '' ? "N/A" : title,
-                description: description === '' ? "N/A" : description,
+                /* title: title === '' ? "N/A" : title, */
+                title: "Flavour's Kitchen",
+                /* description: description === '' ? "N/A" : description, */
+                description: "Flavour's is a brand new kitchen with all the amazing amenities provided at no extra cost.",
                 status: status === null ? "N/A" : status,
-                member_id: username === '' ? "N/A" : username,
+                member_id: username === '' ? value : username,
                 start: props.start.toString(),
                 end: props.end.toString(),
                 /* kitchen_id: moment(props.start).week() + title + moment(props.start).hours(), */
@@ -50,12 +54,13 @@ function AddEvent(props) {
                 endWeek: moment(props.end).week(), */
                 /* time: moment(props.start).hours() */
             })
-        setTitle('')
-        /*     setId('') */
-        setDescription('')
+        /* setTitle('')
+        setId('')
+        setDescription('') */
         setUsername('')
         setCost('')
         setStatus('')
+        setValue(users[0])
         props.onClose()
 
     }
@@ -63,11 +68,29 @@ function AddEvent(props) {
     return (
         <React.Fragment>
             <Typography align="center" variant="h6" style={{ color: "#5DB6CE" }}>Create Booking</Typography>
-            <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Enter Kitchen Name" style={{ margin: '1%' }} autoFocus={true} />
+            {/* <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Enter Kitchen Name" style={{ margin: '1%' }} autoFocus={true} /> */}
             {/*   <Input value={kitchen_Id} onChange={(e) => setId(e.target.value)} type="number" placeholder="Kitchen ID" label="Kitchen ID" variant="outlined" style={{ margin: '1%' }} /> */}
-            <Input value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description" label="Kitchen Description" type="text" variant="outlined" style={{ margin: '1%' }} />
-            <Input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="User Name" label="Username" variant="outlined" style={{ margin: '1%' }} />
-            <Input value={cost} onChange={(e) => setCost(e.target.value)} placeholder="Cost" label="Cost" type="number" variant="outlined" style={{ margin: '1%' }} />
+            {/* <Input value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description" label="Kitchen Description" type="text" variant="outlined" style={{ margin: '1%' }} /> */}
+            {/* <Input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="User Name" label="Username" variant="outlined" style={{ margin: '1%' }} /> */}
+
+            <Autocomplete
+                style={{ margin: '1%' }}
+                fullWidth
+                disablePortal
+                id="combo-box-demo"
+                options={users}
+                value={value}
+                inputValue={username}
+                onChange={(event, newValue) => {
+                    setValue(newValue)
+                }}
+                onInputChange={(event, username) => {
+                    setUsername(username)
+                }}
+                renderInput={(params) => <TextField {...params} label="Username" /* onChange={(e) => setUsername(e.target.value)} */ />}
+            />
+
+            <TextField fullWidth value={cost} onChange={(e) => setCost(e.target.value)} placeholder="Cost" label="Cost" type="number" variant="outlined" style={{ margin: '1%' }} />
             <Select
                 value={status ? status : "default"}
                 label="Status"

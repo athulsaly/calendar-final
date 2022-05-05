@@ -10,9 +10,9 @@ import axios from 'axios';
 
 function MonthView(props) {
     const [events, setEvents] = useState([]);
-    let kitchen_id = '103'
-    useEffect(() => {
 
+    useEffect(() => {
+        let kitchen_id = '105'
         const fetchData = async () => {
             const result = await axios.get(`https://yft2x0eiuc.execute-api.us-east-1.amazonaws.com/qa/kitchens/${kitchen_id}/bookings`);
             /* const result = await crud.get(`/post`); */
@@ -46,7 +46,7 @@ function MonthView(props) {
             if (dateValue === moment(JSON.parse(booking.start)).format("YYYY/MM/DD")) {
                 listData.push({
                     status: generateRandomColor(booking),
-                    content: booking.title,
+                    content: booking.member_id,
 
                 });
             }

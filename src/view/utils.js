@@ -60,9 +60,10 @@ export const generateWeekViewCoordinates = (event, startDate) => {
     /*   console.log(top) */
     // Calculating height
     const timeFactor = duration.hours() + duration.minutes() / 60;
-    const height = timeFactor * 100;
-
+    let height
     let left, width;
+    const days = duration._data.days
+
     if (weekStart.week() === start.week()) {
         const weekDay = start.weekday();
         left = (weekDay + 1) * 12.5;
@@ -88,6 +89,7 @@ export const generateWeekViewCoordinates = (event, startDate) => {
         width = (daysDiff + 1) * 12.5 /* - 2 */;
     }
 
+
     if (weekStart.week() > start.week()) {
         left = 12.5;
     }
@@ -95,6 +97,91 @@ export const generateWeekViewCoordinates = (event, startDate) => {
     if (weekStart.week() < end.week()) {
         width = 100 - left;
     }
+
+    if (days === 0) {
+        height = timeFactor * 100;
+    }
+    else if (days >= 1) {
+        height = 24 * 100
+        width = 12.5 * days
+
+    }
+
+
+
+    return {
+        /* top: top + '%', */
+        left: left + '%',
+        height: height + '%',
+        width: width + '%',
+    };
+
+};
+
+export const generateWeekViewCoordinatess = (event, startDate) => {
+
+    const start = moment(JSON.parse(event.start));
+    const end = moment(JSON.parse(event.end));
+    const duration = moment.duration(end.diff(start));
+    const weekStart = moment(startDate);
+
+    // Calculating Top
+    /*   const top = start.minutes() === 30 ? '50' : '0'; */
+    /*   console.log(top) */
+    // Calculating height
+    const timeFactor = duration.hours() + duration.minutes() / 60;
+    let height
+    let left, width;
+    const days = duration._data.days
+
+
+    if (weekStart.week() === start.week()) {
+        const weekDay = start.weekday();
+        left = (weekDay + 1) * 12.5 + 12.5 * days;
+
+    }
+
+    if (weekStart.week() === start.week() && weekStart.week() === end.week()) {
+        const daysDiff = duration.days();
+        width = (daysDiff + 1) * 12.5 /* - 2 */;
+    }
+
+    /*    console.log(weekStart.week(), 'tp', start.week(), end.week()) */
+    if (weekStart.week() > start.week() && weekStart.week() === end.week()) {
+        const daysDiff = moment.duration(
+            end.diff(
+                weekStart
+                    .startOf('week')
+                    .set('hours', start.hours())
+                    .set('minutes', start.minutes())
+            )
+        )
+            .days();
+        width = (daysDiff + 1) * 12.5 /* - 2 */;
+    }
+
+    /* 
+    
+        if (weekStart.week() > start.week()) {
+            left = 12.5;
+        }
+    
+        if (weekStart.week() < end.week()) {
+            width = 100 - left;
+        }
+    
+        if (days === 0) {
+            height = timeFactor * 100;
+        }
+        else if (days >= 1) {
+            height = 24 * 100
+            width = 12.5 * 2
+            left = 12.5 * timeFactor / 2
+        }
+     */
+
+    height = timeFactor * 100
+    width = 12.5
 
     return {
         /* top: top + '%', */

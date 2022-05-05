@@ -19,6 +19,36 @@ const Img = styled('img')({
     maxWidth: '100%',
     maxHeight: '100%',
 });
+function generateText(event) {
+
+    if (event === 'Created')
+        return '#f0e29b'
+    else if (event === 'Pending')
+        return '#d5d5d5'
+    else if (event === 'Confirmed')
+        return '#d1fdfc'
+    else if (event === 'Canceled')
+        return '#ffd3ca'
+    else if (event === 'Completed')
+        return '#b8faba'
+    else
+        return '#c90bf4'
+}
+function generateTextColor(event) {
+
+    if (event === 'Created')
+        return '#ff9202'
+    else if (event === 'Pending')
+        return '#5e5e5e'
+    else if (event === 'Confirmed')
+        return '#026b67'
+    else if (event === 'Canceled')
+        return '#b41a02'
+    else if (event === 'Completed')
+        return '#007300'
+    else
+        return '#fffff'
+}
 
 function BookingDetails(props) {
     const [events] = useState(props.event);
@@ -65,6 +95,9 @@ function BookingDetails(props) {
                             <Grid item xs>
                                 <Typography gutterBottom variant="h6" component="div">
                                     <b className='heading1'>{events.title}</b>
+                                    <Box textAlign="center" alignSelf="center" className='title2' color={generateTextColor(events.status)} backgroundColor={generateText(events.status)} >
+                                        {events.status}
+                                    </Box>
                                 </Typography>
                                 <div style={{ display: "flex", alignItems: 'flex-start' }}>
                                     <LocationOnIcon /> &nbsp;
@@ -72,7 +105,10 @@ function BookingDetails(props) {
                                         5832 Georgia Ave NW, Washington, Washington, D.C, DC 20011, USA
                                     </Typography>
                                 </div>
+                                <br />
                             </Grid>
+
+
                         </Grid>
 
                     </Grid>
@@ -86,7 +122,7 @@ function BookingDetails(props) {
                         <Grid container spacing={1} columns={16}>
                             <Grid item xs={8}>
                                 <p className='titlex'>From</p>
-                                <p className='title2'>{moment(JSON.parse(startx)).format('Do MMM YYYY')}</p>
+                                <p className='title2'>{moment(JSON.parse(startx)).format('Do MMM YYYY, hh:mm A')}</p>
                                 <p className='titlex'>First Name</p>
                                 <p className='title2'>John</p>
                                 <p className='titlex'>Phone Number</p>
@@ -95,7 +131,7 @@ function BookingDetails(props) {
                             </Grid>
                             <Grid item xs={8}>
                                 <p className='titlex'>To</p>
-                                <p className='title2'>{moment(JSON.parse(endx)).format('Do MMM YYYY')}</p>
+                                <p className='title2'>{moment(JSON.parse(endx)).format('Do MMM YYYY, hh:mm A')}</p>
                                 <p className='titlex'>Last Name</p>
                                 <p className='title2'>Maxwell</p>
                                 <p className='titlex'>Email</p>

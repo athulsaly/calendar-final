@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import moment from 'moment'
-import { generateWeekViewCoordinates } from '../utils'
+import { generateWeekViewCoordinatess } from '../utils'
 import { eventHighlighter } from '../../styles'
 /* import EditEventModal from './EditEventModal' */
 import Booking from './Booking'
@@ -60,7 +60,7 @@ function generateText(event) {
 }
 
 
-function EventHighlighter(props) {
+function EventHighlighterr(props) {
 
 
     const [showDialogEdit, setEdit] = useState(false)
@@ -97,7 +97,7 @@ function EventHighlighter(props) {
 
                 onClick={handleOpenEdit}
                 style={{
-                    ...generateWeekViewCoordinates(
+                    ...generateWeekViewCoordinatess(
                         props.event,
                         props.startDate
                     ),
@@ -109,31 +109,14 @@ function EventHighlighter(props) {
                 }}
             >
 
-                <span style={{ fontSize: 12, fontWeight: 'bold', color: color, fontFamily: 'sans-serif' }}>
-                    {props.event.member_id} <br />
-                    {moment(JSON.parse(props.event.start)).format('hh:mm a')}
-                    {' '}
-                    -
-                    {' '}
-                    {moment(JSON.parse(props.event.end)).format('hh:mm a')}
-                    <br />
-                    {/*              Description: {props.event.description}
-                    <br />
-                    Cost: {props.event.total_fee}
-                    <br />
-                    Status: {props.event.status}
-                    <br />
-                    User: {props.event.member_id}
-                    <br />
-                    Date: {moment(JSON.parse(props.event.start)).format('DD dddd MMMM YYYY')} */}
-                </span>
+
             </div>
         </React.Fragment >
     )
 }
 
 
-export default EventHighlighter
+export default EventHighlighterr
 
 
 /* <EditEventModal
