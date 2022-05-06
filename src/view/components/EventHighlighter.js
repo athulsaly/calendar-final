@@ -73,6 +73,7 @@ function EventHighlighter(props) {
 
     }
 
+    let date = moment.duration(props.event.end - props.event.start)._data.days
     const topx = moment(props.event.start).minutes().toString()
     let color = generateText(props.event.status)
     return (
@@ -105,7 +106,9 @@ function EventHighlighter(props) {
                     ...eventHighlighter,
                     backgroundColor: generateBackground(props.event.status),
                     opacity: 0.65,
-                    boxShadow: `0px 2px ${color}`
+                    boxShadow: date >= 1 ? '' : `0px 2px ${color}`,
+                    borderRadius: '0px',
+                    border: '0px'
                 }}
             >
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, DatePicker } from 'antd';
+import { /* Input, */ DatePicker } from 'antd';
 import EditIcon from '@mui/icons-material/Edit';
 import moment from 'moment';
 import { Typography, Select, MenuItem, Autocomplete, TextField } from "@mui/material";
@@ -11,7 +11,7 @@ const { RangePicker } = DatePicker;
 
 
 function AddEvent(props) {
-    const users = ["Athul", "Hassan", "Denzil"]
+    const users = ["Athul Saly", "Hassan Badru", "Denzil George"]
     const kitchen_statuses = kitchenStatuses()
     /* const [title, setTitle] = useState('')
       const [kitchen_Id, setId] = useState('')
@@ -125,8 +125,8 @@ function AddEvent(props) {
                 }}
                 format="MMM Do, YYYY hh:mm a"
             />
-            <Button startIcon={<EditIcon />} style={{ backgroundColor: '#5DB6CE', color: '#fff', margin: '1%', width: '100%' }} onClick={createBooking} >Submit</Button>
-        </React.Fragment>
+            <Button disabled={moment(props.start) <= moment()} startIcon={<EditIcon />} style={{ backgroundColor: '#5DB6CE', color: '#fff', margin: '1%', width: '100%' }} onClick={createBooking} >Submit</Button>
+        </React.Fragment >
     )
 }
 

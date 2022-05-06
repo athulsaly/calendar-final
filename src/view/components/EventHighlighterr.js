@@ -101,11 +101,13 @@ function EventHighlighterr(props) {
                         props.event,
                         props.startDate
                     ),
-                    top: topx === '30' ? '50%' : '0%',
+                    /* top: topx === '30' ? '50%' : '0%', */
                     ...eventHighlighter,
                     backgroundColor: generateBackground(props.event.status),
                     opacity: 0.65,
-                    boxShadow: `0px 2px ${color}`
+                    boxShadow: `0px 2px ${color}`,
+                    borderRadius: '0px',
+                    border: '0px'
                 }}
             >
 

@@ -54,7 +54,7 @@ export const generateWeekViewCoordinates = (event, startDate) => {
     const end = moment(JSON.parse(event.end));
     const duration = moment.duration(end.diff(start));
     const weekStart = moment(startDate);
-
+    let hours = moment(start).format('HH');
     // Calculating Top
     /*   const top = start.minutes() === 30 ? '50' : '0'; */
     /*   console.log(top) */
@@ -102,12 +102,10 @@ export const generateWeekViewCoordinates = (event, startDate) => {
         height = timeFactor * 100;
     }
     else if (days >= 1) {
-        height = 24 * 100
+        height = (24 - hours) * 100
         width = 12.5 * days
 
     }
-
-
 
     return {
         /* top: top + '%', */
@@ -130,10 +128,10 @@ export const generateWeekViewCoordinatess = (event, startDate) => {
     /*   console.log(top) */
     // Calculating height
     const timeFactor = duration.hours() + duration.minutes() / 60;
-    let height
+    let height, top;
     let left, width;
     const days = duration._data.days
-
+    let hours = moment(start).format('HH');
 
     if (weekStart.week() === start.week()) {
         const weekDay = start.weekday();
@@ -180,11 +178,19 @@ export const generateWeekViewCoordinatess = (event, startDate) => {
         }
      */
 
-    height = timeFactor * 100
+
     width = 12.5
+    if (hours === '00') {
+        top = start.minutes() === 30 ? '50' : '0'
+        height = timeFactor * 100
+    }
+    else {
+        top = start.minutes() === 30 ? '50' : 2 - hours * 100
+        height = timeFactor * 100 + hours * 100
+    }
 
     return {
-        /* top: top + '%', */
+        top: top + '%',
         left: left + '%',
         height: height + '%',
         width: width + '%',
