@@ -26,6 +26,7 @@ body {
   color: white;
   padding-right: 10px;
   font-size: 15px;
+
 }
 
 .ant-picker-calendar-full .ant-picker-panel .ant-picker-calendar-date-content {
@@ -36,4 +37,8 @@ body {
 div.ant-radio-group.ant-radio-group-outline.ant-picker-calendar-mode-switch {
   display: none;
 
+}
+
+.css-1rxz5jq-MuiSelect-select-MuiInputBase-input-MuiInput-input.css-1rxz5jq-MuiSelect-select-MuiInputBase-input-MuiInput-input.css-1rxz5jq-MuiSelect-select-MuiInputBase-input-MuiInput-input {
+  color: #5db6ce;
 }

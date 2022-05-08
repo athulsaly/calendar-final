@@ -1,16 +1,21 @@
 
+
 export const col = {
-    border: '#e0e0e0 1px solid',
+
+    borderBottom: '#e0e0e0 1px solid ',
+    /* borderColor: '#5db6ce' */
 };
 export const weekDays = {
-    height: 100,
+    height: 60,
 };
 
 export const weekDayName = {
+    paddingTop: 10,
     fontSize: 12,
-    lineHeight: '32px',
+    lineHeight: '15px',
     textTransform: 'capitalize',
-    color: '#757575',
+    /*  color: '#757575', */
+    color: '#5db6ce',
     marginLeft: 10,
 };
 
@@ -28,9 +33,9 @@ export const containerx = {
 };
 
 export const weekDates = {
-    fontSize: 40,
+    fontSize: 24,
     lineHeight: '12px',
-    color: '#9e9e9e',
+    color: '#5db6ce',
     marginLeft: 10,
 };
 
@@ -48,7 +53,8 @@ export const timeCol = {
 export const timeString = {
     position: 'absolute',
     right: 8,
-    top: -8,
+    top: -9,
+    color: '#5db6ce',
 };
 
 export const row = {
@@ -62,9 +68,10 @@ export const toolbar = {
 export const toolbarDate = {
     fontSize: 20,
     fontWeight: 400,
-    opacity: 0.54,
+    opacity: 1,
     lineHeight: '30px',
     textAlign: 'right',
+    color: '#5db6ce'
 };
 
 export const appTitle = {
@@ -93,7 +100,8 @@ export const weekButtons = {
 };
 
 export const lightHighlighter = {
-    backgroundColor: 'rgba(0,0,0,0.04)',
+     backgroundColor: 'rgba(0,0,0,0.04)',
+   /*  backgroundColor: '#d1fdff' */
 };
 
 export const eventHighlighter = {

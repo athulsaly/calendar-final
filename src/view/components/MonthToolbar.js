@@ -28,12 +28,13 @@ function MonthToolbar(props) {
     return (
         <Row justify='space-evenly' type="flex" gutter={4} style={toolbar}>
             <Col span={8} offset={3} style={appTitle}>
-                <CalendarMonth style={spacify} fontSize="medium" />Booking Calendar
+                <CalendarMonth style={spacify} sx={{ color: '#5db6ce' }} fontSize="medium" /><span style={{ color: '#5db6ce' }} >Booking Calendar</span>
                 &nbsp;&nbsp;&nbsp;
 
-                <FormControl variant='standard' style={{ minWidth: 120 }}>
+                <FormControl variant='standard' style={{ minWidth: 120, paddingTop: '2.5px' }}>
                     <Select
                         labelId="demo-simple-select-label"
+                        disableUnderline
                         id="demo-simple-select"
                         value={view}
                         label={view}

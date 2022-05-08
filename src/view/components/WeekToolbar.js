@@ -36,12 +36,17 @@ function WeekToolbar(props) {
 
     return (
         <Row justify='center' type="flex" gutter={4} style={toolbar}>
-            <Col span={6} offset={3} style={appTitle}>
-                <CalendarMonth style={spacify} fontSize="medium" />Booking Calendar
+            <Col span={12} offset={3} style={{
+                fontSize: 20,
+                fontWeight: 400,
+                lineHeight: '30px',
+            }}>
+                <CalendarMonth style={{ paddingRight: '5', color: '#5db6ce' }} fontSize="medium" /><span style={{ color: '#5db6ce' }}>Booking Calendar</span>
                 &nbsp;&nbsp;&nbsp;
 
-                <FormControl variant='standard' style={{ minWidth: 120 }}>
+                <FormControl variant='standard' style={{ minWidth: 100, paddingTop: '2.5px' /* alignContent: 'inline-block' */ }}>
                     <Select
+                        disableUnderline
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         value={view}
@@ -56,13 +61,13 @@ function WeekToolbar(props) {
                 </FormControl>
             </Col>
 
-
+            {/* 
             <Circle sx={{ color: '#FF8F00' }} style={appTitle} />&nbsp;Created&nbsp;&nbsp;&nbsp;
             <Circle sx={{ color: '#787C87' }} style={appTitle} />&nbsp;Pending&nbsp;&nbsp;&nbsp;
             <Circle sx={{ color: '#29D6D0' }} style={appTitle} />&nbsp;Confirmed&nbsp;&nbsp;&nbsp;
             <Circle sx={{ color: '#FF0009' }} style={appTitle} />&nbsp;Canceled&nbsp;&nbsp;&nbsp;
             <Circle sx={{ color: '#00FF39' }} style={appTitle} />&nbsp;Completed&nbsp;&nbsp;&nbsp;
-
+ */}
             <Col span={5} /* offset={2} */ style={alignRight} >
                 <ButtonGroup>
                     <Button onClick={props.goToPreviousWeek} startIcon={<NavigateBefore />} />

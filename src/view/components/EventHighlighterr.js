@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import moment from 'moment'
+/* import moment from 'moment' */
 import { generateWeekViewCoordinatess } from '../utils'
 import { eventHighlighter } from '../../styles'
 /* import EditEventModal from './EditEventModal' */
@@ -73,7 +73,7 @@ function EventHighlighterr(props) {
 
     }
 
-    const topx = moment(props.event.start).minutes().toString()
+    /* const topx = moment(props.event.start).minutes().toString() */
     let color = generateText(props.event.status)
     return (
         <React.Fragment>

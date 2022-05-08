@@ -166,7 +166,7 @@ function WeekView() {
                                                     return (
                                                         moment(startTime).week() <= moment(startDate).week() &&
                                                         moment(endTime).week() >= moment(startDate).week() &&
-                                                        moment(endTime).format('hh:00 a') !== '12:00 am' &&
+                                                        /*  moment(endTime).format('hh:00 a') !== '12:00 am' && */
                                                         <>
                                                             <EventHighlighterr
                                                                 key={event.title + event.end + event.start + event.member_id}
@@ -195,8 +195,8 @@ function WeekView() {
                                                     return (
                                                         moment(startTime).week() <= moment(startDate).week() &&
                                                         moment(endTime).week() >= moment(startDate).week() &&
-                                                        moment(endTime).format('hh:00 a') !== '12:00 am' &&
-
+                                                        /* moment(endTime).format('hh:00 a') !== '12:00 am' &&
+ */
                                                         <EventHighlighter
                                                             key={event.title + event.end + event.start}
                                                             startDate={startDate}
