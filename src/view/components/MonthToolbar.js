@@ -51,11 +51,11 @@ function MonthToolbar(props) {
             </Col>
 
             <Col /* span={6} */ offset={3} />
-            <Circle sx={{ color: '#FF8F00' }} style={appTitle} />&nbsp;Created&nbsp;&nbsp;&nbsp;
-            <Circle sx={{ color: '#787C87' }} style={appTitle} />&nbsp;Pending&nbsp;&nbsp;&nbsp;
-            <Circle sx={{ color: '#29D6D0' }} style={appTitle} />&nbsp;Confirmed&nbsp;&nbsp;&nbsp;
-            <Circle sx={{ color: '#FF0009' }} style={appTitle} />&nbsp;Canceled&nbsp;&nbsp;&nbsp;
-            <Circle sx={{ color: '#00FF39' }} style={appTitle} />&nbsp;Completed&nbsp;&nbsp;&nbsp;
+            <Circle sx={{ color: '#FF8F00' }} style={appTitle} />&nbsp;<span style={{color:'#189ab4'}}>Created</span>&nbsp;&nbsp;&nbsp;
+            <Circle sx={{ color: '#787C87' }} style={appTitle} />&nbsp;<span style={{color:'#189ab4'}}>Pending</span>&nbsp;&nbsp;&nbsp;
+            <Circle sx={{ color: '#29D6D0' }} style={appTitle} />&nbsp;<span style={{color:'#189ab4'}}>Confirmed</span>&nbsp;&nbsp;&nbsp;
+            <Circle sx={{ color: '#FF0009' }} style={appTitle} />&nbsp;<span style={{color:'#189ab4'}}>Canceled</span>&nbsp;&nbsp;&nbsp;
+            <Circle sx={{ color: '#00FF39' }} style={appTitle} />&nbsp;<span style={{color:'#189ab4'}}>Completed</span>&nbsp;&nbsp;&nbsp;
 
             <Typography>{/* <b>SELECT THE MONTH</b> */}</Typography>
         </Row >
