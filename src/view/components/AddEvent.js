@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { /* Input, */ DatePicker } from 'antd';
 import EditIcon from '@mui/icons-material/Edit';
 import moment from 'moment';
@@ -20,6 +20,16 @@ function AddEvent(props) {
     const [cost, setCost] = useState('')
     const [status, setStatus] = useState('Created')
     const [value, setValue] = useState(users[0])
+    const costPerHr = 20
+    const duration = moment( moment(props.end)-moment(props.start))
+    const timeFactor = duration._i ;
+    const hours = Math.floor((timeFactor / (1000 * 60 * 60)));
+    let totalCost = costPerHr * hours
+    useEffect(() => {
+        let totalCost = costPerHr * hours
+        setCost(totalCost)
+    }, [hours]);
+
     /* const [eventStart, setEventStart] = useState(null);
     const [eventEnd, setEventEnd] = useState(null);
     const onTimeChange = (dates) => {
@@ -36,7 +46,7 @@ function AddEvent(props) {
     let kitchen_id = '105';
     /* console.log(moment(props.start)) */
     const createBooking = () => {
-
+       
         axios.post(`https://yft2x0eiuc.execute-api.us-east-1.amazonaws.com/qa/kitchens/${kitchen_id}/bookings`,
             {
                 /* id: '', */
@@ -89,8 +99,7 @@ function AddEvent(props) {
                 }}
                 renderInput={(params) => <TextField {...params} label="Username" /* onChange={(e) => setUsername(e.target.value)} */ />}
             />
-
-            <TextField fullWidth value={cost} onChange={(e) => setCost(e.target.value)} placeholder="Cost" label="Cost" type="number" variant="outlined" style={{ margin: '1%' }} />
+            {/* <TextField fullWidth value={cost} onChange={(e) => setCost(e.target.value)} placeholder="Cost" label="Cost" type="number" variant="outlined" style={{ margin: '1%' }} /> */}
             <Select
                 value={status !=='' ? status : "default"}
                 label="Status"
@@ -125,6 +134,7 @@ function AddEvent(props) {
                 }}
                 format="MMM Do, YYYY hh:mm a"
             />
+            <Typography variant='subtitle1'  component="div" sx={{color:'white', background:'#ff9202', textAlign:'center'}} style={{ margin: '1%',width: '100%' }}>{/* BaseCost: ${costPerHr} <br/> */}Total Cost/Hr: ${totalCost}</Typography>
             <Button disabled={moment(props.start) <= moment()} startIcon={<EditIcon />} style={{ backgroundColor: '#5DB6CE', color: '#fff', margin: '1%', width: '100%' }} onClick={createBooking} >Submit</Button>
         </React.Fragment >
     )

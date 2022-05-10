@@ -72,9 +72,12 @@ function BookingDetails(props) {
     const startx = events.start === undefined ? '0' : events.start
     const endx = events.end === undefined ? '0' : events.end
 
-    const total_days = moment(JSON.parse(endx)).format('d') - moment(JSON.parse(startx)).format('d') === 0 ? '1' : moment(JSON.parse(endx)).format('d') - moment(JSON.parse(startx)).format('d') + 1
-    /* const tot_days = moment(moment(JSON.parse(startx)).diff(moment(JSON.parse(endx)))).format('DD') */
-    const total = events.total_fee * total_days
+   /*   const total_days = moment(JSON.parse(endx)).format('d') - moment(JSON.parse(startx)).format('d') === 0 ? '1' : moment(JSON.parse(endx)).format('d') - moment(JSON.parse(startx)).format('d') + 1 
+    const tot_days = moment(moment(JSON.parse(startx)).diff(moment(JSON.parse(endx)))).format('DD')  */
+    const duration = moment( moment(JSON.parse(endx))-moment(JSON.parse(startx)))
+    const timeFactor = duration._i ;
+    const hours = Math.floor((timeFactor / (1000 * 60 * 60)));
+    const total = events.total_fee /* * total_days */
     const service_fee = parseFloat(total * .133).toFixed(2)
     const final = parseFloat(total) + parseFloat(service_fee)
     return (
@@ -149,7 +152,7 @@ function BookingDetails(props) {
                     <Box sx={{ flexGrow: 1 }}>
                         <Grid container spacing={1} columns={16}>
                             <Grid item xs={8}>
-                                <p className='heading3'>${events.total_fee} x {total_days} {total_days === '1' ? 'Day' : 'Days'}</p>
+                                <p className='heading3'>${events.total_fee} x {hours} {hours === 1 ? 'Hour' : 'Hours'} {/* {total_days} */} {/* {total_days === '1' ? 'Day' : 'Days'} */}</p>
                                 <p className='heading3'>Service fee</p>
                             </Grid>
                             <Grid item xs={8}>
@@ -183,7 +186,7 @@ function BookingDetails(props) {
                     </Grid>
                     <Grid container spacing={2}>
                         <Grid item style={{ display: 'inline-flex' }}>
-                            <p className='heading3' style={{ color: '#5DB6CE' }}>${final.toFixed(2)}</p>&nbsp;<p className='heading3' style={{ color: '#7A7A7A' }}>/ {total_days} {total_days === '1' ? 'Day' : 'Days'}</p>
+                            <p className='heading3' style={{ color: '#5DB6CE' }}>${final.toFixed(2)}</p>&nbsp;<p className='heading3' style={{ color: '#7A7A7A' }}>for {hours} {hours === 1 ? 'Hour' : 'Hours'} {/* {total_days} {total_days === '1' ? 'Day' : 'Days'} */}</p>
                         </Grid>
 
                     </Grid>
