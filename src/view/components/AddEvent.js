@@ -11,14 +11,14 @@ const { RangePicker } = DatePicker;
 
 
 function AddEvent(props) {
-    const users = ["Athul Saly", "Hassan Badru", "Denzil George"]
+    const users = ["Athul","Athul Saly", "Hassan Badru", "Denzil George", "Jack Ma"]
     const kitchen_statuses = kitchenStatuses()
     /* const [title, setTitle] = useState('')
       const [kitchen_Id, setId] = useState('')
     const [description, setDescription] = useState('') */
     const [username, setUsername] = useState('')
     const [cost, setCost] = useState('')
-    const [status, setStatus] = useState('')
+    const [status, setStatus] = useState('Created')
     const [value, setValue] = useState(users[0])
     /* const [eventStart, setEventStart] = useState(null);
     const [eventEnd, setEventEnd] = useState(null);
@@ -59,7 +59,7 @@ function AddEvent(props) {
         setDescription('') */
         setUsername('')
         setCost('')
-        setStatus('')
+        setStatus('Created')
         setValue(users[0])
         props.onClose()
 
@@ -92,7 +92,7 @@ function AddEvent(props) {
 
             <TextField fullWidth value={cost} onChange={(e) => setCost(e.target.value)} placeholder="Cost" label="Cost" type="number" variant="outlined" style={{ margin: '1%' }} />
             <Select
-                value={status ? status : "default"}
+                value={status !=='' ? status : "default"}
                 label="Status"
                 variant="standard"
                 notched="false"

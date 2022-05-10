@@ -74,7 +74,8 @@ function EventHighlighter(props) {
     }
 
     let date = moment.duration(props.event.end - props.event.start)._data.days
-    const topx = moment(props.event.start).minutes().toString()
+    const topx = moment(JSON.parse(props.event.start)).minutes().toString()
+
     let color = generateText(props.event.status)
     return (
         <React.Fragment>

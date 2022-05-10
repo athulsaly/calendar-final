@@ -1,14 +1,14 @@
 import React from 'react';
 import { Row, Col, Tooltip } from 'antd';
-import { CalendarMonth, Circle, NavigateBefore, NavigateNext } from '@mui/icons-material';
+import { CalendarMonth, /* Circle, */ NavigateBefore, NavigateNext } from '@mui/icons-material';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import {
     toolbar,
     toolbarDate,
-    appTitle,
+    /* appTitle, */
     alignRight,
-    spacify
+    /* spacify */
 } from '../../styles';
 import moment from 'moment';
 import MenuItem from '@mui/material/MenuItem';
