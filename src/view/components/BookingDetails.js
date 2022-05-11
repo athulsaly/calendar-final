@@ -76,7 +76,7 @@ function BookingDetails(props) {
     const tot_days = moment(moment(JSON.parse(startx)).diff(moment(JSON.parse(endx)))).format('DD')  */
     const duration = moment( moment(JSON.parse(endx))-moment(JSON.parse(startx)))
     const timeFactor = duration._i ;
-    const hours = Math.floor((timeFactor / (1000 * 60 * 60)));
+    const hours = (timeFactor / 1000 / 60 / 60)
     const total = events.total_fee /* * total_days */
     const service_fee = parseFloat(total * .133).toFixed(2)
     const final = parseFloat(total) + parseFloat(service_fee)

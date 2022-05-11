@@ -12,6 +12,7 @@ import MonthView from './components/MonthView'
 import MonthToolbar from './components/MonthToolbar'
 import axios from 'axios'
 import EventHighlighterr from './components/EventHighlighterr'
+import EventHighlighterx from './components/EventHighlighterx'
 
 
 function WeekView() {
@@ -161,7 +162,44 @@ function WeekView() {
                                                 /*  console.log(event) */
                                                 let startTime = JSON.parse(event.start)
                                                 let endTime = JSON.parse(event.end)
-                                                if (time === moment(startTime).hours() && moment(startTime).format('YYYY') === moment(startDate).format('YYYY') && moment.duration(moment(endTime).diff(moment(startTime))).days() >= 1) {
+                                                if (time === moment(startTime).hours() && moment(startTime).format('YYYY') === moment(startDate).format('YYYY') && moment.duration(moment(endTime).diff(moment(startTime))).days() > 1) {
+
+                                                    return (
+                                                        moment(startTime).week() <= moment(startDate).week() &&
+                                                        moment(endTime).week() >= moment(startDate).week() &&
+                                                        /*  moment(endTime).format('hh:00 a') !== '12:00 am' && */
+                                                        <>
+                                                            <EventHighlighterr
+                                                                key={event.title + event.end + event.start + event.member_id}
+                                                                startDate={startDate}
+                                                                eventStart={eventStart}
+                                                                eventEnd={eventEnd}
+                                                                onTimeChange={onCurrentEventTimeChange}
+                                                                event={event}
+
+                                                            />
+                                                            <EventHighlighterx
+                                                                key={event.title + event.end }
+                                                                startDate={startDate}
+                                                                eventStart={eventStart}
+                                                                eventEnd={eventEnd}
+                                                                onTimeChange={onCurrentEventTimeChange}
+                                                                event={event}
+
+                                                            />
+                                                            <EventHighlighter
+                                                                key={event.title + event.end + event.start}
+                                                                startDate={startDate}
+                                                                eventStart={eventStart}
+                                                                eventEnd={eventEnd}
+                                                                onTimeChange={onCurrentEventTimeChange}
+                                                                event={event}
+
+                                                            />
+                                                        </>
+                                                    )
+                                                }
+                                                else if (time === moment(startTime).hours() && moment(startTime).format('YYYY') === moment(startDate).format('YYYY') && moment.duration(moment(endTime).diff(moment(startTime))).days() === 1) {
 
                                                     return (
                                                         moment(startTime).week() <= moment(startDate).week() &&

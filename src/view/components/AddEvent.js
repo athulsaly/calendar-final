@@ -23,8 +23,9 @@ function AddEvent(props) {
     const costPerHr = 20
     const duration = moment( moment(props.end)-moment(props.start))
     const timeFactor = duration._i ;
-    const hours = Math.floor((timeFactor / (1000 * 60 * 60)));
+    const hours = (timeFactor / 1000 / 60 / 60);
     let totalCost = costPerHr * hours
+
     useEffect(() => {
         let totalCost = costPerHr * hours
         setCost(totalCost)
