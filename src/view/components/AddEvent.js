@@ -7,6 +7,7 @@ import { kitchenStatuses } from '../enum';
 /* import crud from '../api/crud'; */
 import Button from '@mui/material/Button';
 import axios from 'axios';
+import locale from "antd/es/date-picker/locale/de_DE";
 const { RangePicker } = DatePicker;
 
 
@@ -117,8 +118,16 @@ function AddEvent(props) {
 
             </Select>
 
-            <RangePicker
+            <RangePicker  /* renderExtraFooter={()=>'Press Ok button to Confirm.'} */
                 style={{ width: '100%', margin: '1%' }}
+                locale={{
+                    ...locale,
+                    lang: {
+                      ...locale.lang,
+                     
+                      ok: "Press this button to confirm selection.",
+                    }
+                  }}
                 /* disabledDate={current => {
                     return current && current < moment().add(1, "month")
                 }} */
