@@ -2,7 +2,7 @@ import React from 'react'
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
-import { Typography, TextField, Button } from '@mui/material'
+import { Typography, TextField,  Select, MenuItem, Button } from '@mui/material'
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import './BookingDetails.css'
 import Divider from '@mui/material/Divider';
@@ -11,6 +11,12 @@ import InfoIcon from '@mui/icons-material/Info';
 import { /* useEffect, */ useState } from 'react';
 import moment from 'moment';
 import CloseIcon from '@mui/icons-material/Close';
+import EditIcon from '@mui/icons-material/Edit';
+import { Dialog } from '@mui/material';
+import { kitchenStatuses } from '../enum';
+import { /* Input, */ DatePicker } from 'antd';
+import locale from "antd/es/date-picker/locale/de_DE";
+const { RangePicker } = DatePicker;
 
 
 const Img = styled('img')({
@@ -66,27 +72,89 @@ function BookingDetails(props) {
 
     }, []);
  */
-
-
-
+    /* const total_days = moment(JSON.parse(endx)).format('d') - moment(JSON.parse(startx)).format('d') === 0 ? '1' : moment(JSON.parse(endx)).format('d') - moment(JSON.parse(startx)).format('d') + 1 
+    const tot_days = moment(moment(JSON.parse(startx)).diff(moment(JSON.parse(endx)))).format('DD')  */
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
     const startx = events.start === undefined ? '0' : events.start
     const endx = events.end === undefined ? '0' : events.end
-
-   /*   const total_days = moment(JSON.parse(endx)).format('d') - moment(JSON.parse(startx)).format('d') === 0 ? '1' : moment(JSON.parse(endx)).format('d') - moment(JSON.parse(startx)).format('d') + 1 
-    const tot_days = moment(moment(JSON.parse(startx)).diff(moment(JSON.parse(endx)))).format('DD')  */
     const duration = moment( moment(JSON.parse(endx))-moment(JSON.parse(startx)))
     const timeFactor = duration._i ;
     const hours = (timeFactor / 1000 / 60 / 60)
     const total = events.total_fee /* * total_days */
     const service_fee = parseFloat(total * .133).toFixed(2)
     const final = parseFloat(total) + parseFloat(service_fee)
-    return (
-        < Box sx={{ width: 'auto' }}>
+    const kitchen_cost = total/hours
 
-            <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+    const kitchen_statuses = kitchenStatuses()
+    const [status, setStatus] = useState(events.status)
+    function disabledDate(current) {
+        // Can not select days before today and today
+        return current && current < moment().endOf('day');
+    }
+
+    return (
+       
+        < Box sx={{ width: 'auto' }}>
+             <Dialog open={open} onClose={handleClose}  PaperProps={{ sx: { width: "100%", height: "30%" } }}>
+<>
+<div style={{backgroundColor: '#5DB6CE', height:'10%' ,color:'white'}} ><Typography align='center' margin="1%">Update Details</Typography></div>
+
+<Select
+                value={status !=='' ? status : "default"}
+                label="Status"
+                variant="standard"
+                notched="false"
+                onChange={(e) => setStatus(e.target.value)}
+                style={{ marginTop:'5%', marginLeft: '10%', marginRight:'10%', color: '#aaa', width: '80%' }}
+
+            >
+                <MenuItem value="default"  > -- Status -- </MenuItem>
+                {
+                    Object.keys(kitchen_statuses).map((status) => <MenuItem key={status} value={kitchen_statuses[status].value} >{kitchen_statuses[status].label}</MenuItem>)
+                }
+            </Select>
+            <RangePicker 
+            style={{marginTop:'5%', width: '80%', marginLeft: '10%', marginRight:'10%' }}
+                locale={{
+                    ...locale,
+                    lang: {
+                      ...locale.lang,
+                     
+                      ok: "Press this button to confirm selection.",
+                    }
+                  }}
+                /* disabledDate={current => {
+                    return current && current < moment().add(1, "month")
+                }} */
+                inputReadOnly={true}
+                disabledDate={disabledDate}
+                value={[moment(JSON.parse(events.start)), moment(JSON.parse(events.end))]}
+                onChange={(e) => props.onTimeChange(e)}
+                showTime={{
+
+                    format: 'HH:mm',
+                    hourStep: 1,
+                    minuteStep: 30,
+                    defaultValue: [moment(JSON.parse(events.start)), moment(JSON.parse(events.end))],
+                }}
+                format="MMM Do, YYYY hh:mm a"
+            />
+            <Typography variant='subtitle1'  component="div" sx={{color:'white', background:'#ff9202', textAlign:'center'}} style={{ marginTop:'2.5%', marginLeft: '10%', marginRight:'10%',width: '80%' }}>{/* BaseCost: ${costPerHr} <br/> */}Total Cost/Hr: ${/* {totalCost} */}</Typography>
+            <Button disabled={moment(props.start) <= moment()} startIcon={<EditIcon />} style={{ backgroundColor: '#5DB6CE', color: '#fff', marginTop:'2%', marginLeft: '10%', marginRight:'10%',width: '80%'  }} /* onClick={createBooking} */ >Submit</Button>
+       
+     
+       
+</>
+             </Dialog>
+                        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid item xs={6}>
                     <Grid>
                         <h2 style={{ float: 'left' }} className='heading2'>Booking Details</h2>
+                        <Box style={{cursor: 'pointer', color:'#5DB6CE'}} onClick={handleOpen}>
+                        <p style={{ float: 'right', alignItems:'end'/* cursor: 'pointer' */ }} className='heading2'>Edit  <EditIcon style={{display:'unset'}}/></p>
+                        </Box>
                     </Grid>
 
                     <Grid container spacing={2}>
@@ -152,7 +220,7 @@ function BookingDetails(props) {
                     <Box sx={{ flexGrow: 1 }}>
                         <Grid container spacing={1} columns={16}>
                             <Grid item xs={8}>
-                                <p className='heading3'>${events.total_fee} x {hours} {hours === 1 ? 'Hour' : 'Hours'} {/* {total_days} */} {/* {total_days === '1' ? 'Day' : 'Days'} */}</p>
+                                <p className='heading3'>{/* ${events.total_fee} */} ${kitchen_cost} x {hours} {hours === 1 ? 'Hour' : 'Hours'} {/* {total_days} */} {/* {total_days === '1' ? 'Day' : 'Days'} */}</p>
                                 <p className='heading3'>Service fee</p>
                             </Grid>
                             <Grid item xs={8}>
@@ -272,7 +340,9 @@ function BookingDetails(props) {
 
                 </Grid>
             </Grid >
+
         </Box >
+        
 
     )
 }

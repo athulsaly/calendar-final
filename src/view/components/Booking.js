@@ -1,4 +1,5 @@
 import './Booking.css'
+import React from 'react';
 import BookingDetails from './BookingDetails';
 import Dialog from '@mui/material/Dialog';
 function Booking(props) {
