@@ -2,7 +2,7 @@ import React from 'react'
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
-import { Typography, TextField, Button } from '@mui/material'
+import { Typography, TextField,  Select, MenuItem, Button } from '@mui/material'
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import './BookingDetails.css'
 import Divider from '@mui/material/Divider';
@@ -11,6 +11,16 @@ import InfoIcon from '@mui/icons-material/Info';
 import { /* useEffect, */ useState } from 'react';
 import moment from 'moment';
 import CloseIcon from '@mui/icons-material/Close';
+import EditIcon from '@mui/icons-material/Edit';
+import { Dialog } from '@mui/material';
+import { kitchenStatuses } from '../enum';
+/* import { Input, DatePicker } from 'antd'; */
+/* import locale from "antd/es/date-picker/locale/de_DE"; */
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import axios from 'axios';
+/* const { RangePicker } = DatePicker; */
 
 
 const Img = styled('img')({
@@ -66,27 +76,108 @@ function BookingDetails(props) {
 
     }, []);
  */
-
-
-
+    /* const total_days = moment(JSON.parse(endx)).format('d') - moment(JSON.parse(startx)).format('d') === 0 ? '1' : moment(JSON.parse(endx)).format('d') - moment(JSON.parse(startx)).format('d') + 1 
+    const tot_days = moment(moment(JSON.parse(startx)).diff(moment(JSON.parse(endx)))).format('DD')  */
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
     const startx = events.start === undefined ? '0' : events.start
     const endx = events.end === undefined ? '0' : events.end
-
-   /*   const total_days = moment(JSON.parse(endx)).format('d') - moment(JSON.parse(startx)).format('d') === 0 ? '1' : moment(JSON.parse(endx)).format('d') - moment(JSON.parse(startx)).format('d') + 1 
-    const tot_days = moment(moment(JSON.parse(startx)).diff(moment(JSON.parse(endx)))).format('DD')  */
     const duration = moment( moment(JSON.parse(endx))-moment(JSON.parse(startx)))
     const timeFactor = duration._i ;
     const hours = (timeFactor / 1000 / 60 / 60)
     const total = events.total_fee /* * total_days */
     const service_fee = parseFloat(total * .133).toFixed(2)
     const final = parseFloat(total) + parseFloat(service_fee)
-    return (
-        < Box sx={{ width: 'auto' }}>
+    const kitchen_cost = total/hours
 
-            <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+    const kitchen_statuses = kitchenStatuses()
+    const [status, setStatus] = useState(events.status)
+   /*  function disabledDate(current) {
+        // Can not select days before today and today
+        return current && current < moment().endOf('day');
+    } */
+    const [startValue, setStartValue] = React.useState(JSON.parse(startx))
+    const [endValue, setEndValue] = React.useState(JSON.parse(endx))
+    const [newCost, setNewCost] = React.useState(null)
+    const newDuration = moment( moment(endValue)-moment(startValue))
+    const newTimeFactor = newDuration._i ;
+    const newHours = (newTimeFactor / 1000 / 60 / 60);
+    React.useEffect(() => {
+        let totalCost = kitchen_cost * newHours
+        setNewCost(totalCost)
+    }, [newHours]);
+  
+console.log(startValue, endValue)
+    const updateBooking = () => {
+       
+        axios.put(`https://yft2x0eiuc.execute-api.us-east-1.amazonaws.com/qa/kitchens/${events.kitchen_id}/bookings/${events.id}`,
+            {
+                status: status,
+                start: startValue.toString(),
+                end: endValue.toString(),
+                total_fee: newCost === null ? events.total_fee : parseFloat(newCost).toFixed(2),
+            })
+            handleClose()
+          
+    }
+
+    return (
+       
+        < Box sx={{ width: 'auto' }}>
+             <Dialog open={open} onClose={handleClose}  PaperProps={{ sx: { width: "100%", height: "35%" } }}>
+<React.Fragment>
+<div style={{backgroundColor: '#5DB6CE', height:'12%' ,color:'white'}} ><Typography align='center' margin="1%">Update Details</Typography></div>
+
+<Select
+                value={status !=='' ? status : "default"}
+                label="Status"
+                variant="standard"
+                notched="false"
+                onChange={(e) => setStatus(e.target.value)}
+                style={{ marginTop:'5%', marginLeft: '10%', marginRight:'10%', color: '#aaa', width: '80%' }}
+
+            >
+                <MenuItem value="default"  > -- Status -- </MenuItem>
+                {
+                    Object.keys(kitchen_statuses).map((status) => <MenuItem key={status} value={kitchen_statuses[status].value} >{kitchen_statuses[status].label}</MenuItem>)
+                }
+            </Select>
+            <Box justifyContent="space-around" sx={{marginLeft: '10%', marginRight: '10%', marginTop:'5%'}}>
+             <LocalizationProvider dateAdapter={AdapterMoment}>
+      <DateTimePicker 
+        renderInput={(props) => <TextField {...props} />}
+        label="Start Time"
+        value={startValue}
+        onChange={(newValue) => {
+          setStartValue(moment(newValue).valueOf());
+        }}
+      
+      />
+    </LocalizationProvider>
+    <LocalizationProvider dateAdapter={AdapterMoment}>
+      <DateTimePicker
+        renderInput={(props) => <TextField {...props} />}
+        label="End Time"
+        value={endValue}
+        onChange={(newValue) => {
+          setEndValue(moment(newValue).valueOf());
+        }}
+      />
+    </LocalizationProvider>
+    </Box>
+            <Typography variant='subtitle1'  component="div" sx={{color:'white', background:'#ff9202', textAlign:'center'}} style={{ marginTop:'2.5%', marginLeft: '10%', marginRight:'10%',width: '80%' }}>{/* BaseCost: ${costPerHr} <br/> */}Total Cost/Hr: ${newCost} </Typography>
+            <Button disabled={moment(JSON.parse(startx)) <= moment()} startIcon={<EditIcon />} style={{ backgroundColor: '#5DB6CE', color: '#fff', marginTop:'2%', marginLeft: '10%', marginRight:'10%',width: '80%'  }}  onClick={updateBooking} >Update</Button>
+
+</React.Fragment>
+             </Dialog>
+                        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid item xs={6}>
                     <Grid>
                         <h2 style={{ float: 'left' }} className='heading2'>Booking Details</h2>
+                        <Box style={{cursor: 'pointer', color:'#5DB6CE'}} onClick={handleOpen}>
+                        <p style={{ float: 'right', alignItems:'end'/* cursor: 'pointer' */ }} className='heading2'>Edit  <EditIcon style={{display:'unset'}}/></p>
+                        </Box>
                     </Grid>
 
                     <Grid container spacing={2}>
@@ -98,9 +189,6 @@ function BookingDetails(props) {
                             <Grid item xs>
                                 <Typography gutterBottom variant="h6" component="div">
                                     <b className='heading1'>{events.title}</b>
-                                    <Box textAlign="center" alignSelf="center" className='title2' color={generateTextColor(events.status)} backgroundColor={generateText(events.status)} >
-                                        {events.status}
-                                    </Box>
                                 </Typography>
                                 <div style={{ display: "flex", alignItems: 'flex-start' }}>
                                     <LocationOnIcon /> &nbsp;
@@ -109,6 +197,9 @@ function BookingDetails(props) {
                                     </Typography>
                                 </div>
                                 <br />
+                                <Box textAlign="center" alignSelf="center" className='title2' color={generateTextColor(events.status)} backgroundColor={generateText(events.status)} >
+                                        {events.status}
+                                    </Box>
                             </Grid>
 
 
@@ -152,7 +243,7 @@ function BookingDetails(props) {
                     <Box sx={{ flexGrow: 1 }}>
                         <Grid container spacing={1} columns={16}>
                             <Grid item xs={8}>
-                                <p className='heading3'>${events.total_fee} x {hours} {hours === 1 ? 'Hour' : 'Hours'} {/* {total_days} */} {/* {total_days === '1' ? 'Day' : 'Days'} */}</p>
+                                <p className='heading3'>{/* ${events.total_fee} */} ${kitchen_cost} x {hours} {hours === 1 ? 'Hour' : 'Hours'} {/* {total_days} */} {/* {total_days === '1' ? 'Day' : 'Days'} */}</p>
                                 <p className='heading3'>Service fee</p>
                             </Grid>
                             <Grid item xs={8}>
@@ -272,7 +363,9 @@ function BookingDetails(props) {
 
                 </Grid>
             </Grid >
+
         </Box >
+        
 
     )
 }
