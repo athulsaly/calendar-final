@@ -20,6 +20,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import axios from 'axios';
+import Alert from '@mui/material/Alert';
 /* const { RangePicker } = DatePicker; */
 
 
@@ -81,6 +82,9 @@ function BookingDetails(props) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [openWarning, setOpenWarning] = React.useState(false)
+    const handleWarningOpen = () =>setOpenWarning(true)
+    const handleWarningClose = () => setOpenWarning(false)
     const startx = events.start === undefined ? '0' : events.start
     const endx = events.end === undefined ? '0' : events.end
     const duration = moment( moment(JSON.parse(endx))-moment(JSON.parse(startx)))
@@ -90,7 +94,6 @@ function BookingDetails(props) {
     const service_fee = parseFloat(total * .133).toFixed(2)
     const final = parseFloat(total) + parseFloat(service_fee)
     const kitchen_cost = total/hours
-
     const kitchen_statuses = kitchenStatuses()
     const [status, setStatus] = useState(events.status)
    /*  function disabledDate(current) {
@@ -107,13 +110,21 @@ function BookingDetails(props) {
         let totalCost = kitchen_cost * newHours
         setNewCost(totalCost)
     }, [newHours]);
-  
-
+    React.useEffect(() => {
+        if(startValue === endValue || moment(startValue) <= moment() || startValue>= endValue ){
+            handleWarningOpen()
+        }
+    }, [status, startValue, endValue])
+    
+    console.log(events.title)
     const updateBooking = () => {
-       
-        axios.put(`https://yft2x0eiuc.execute-api.us-east-1.amazonaws.com/qa/kitchens/${events.kitchen_id}/bookings/${events.id}`,
+       /*  /${events.id} */
+        axios.post(`https://yft2x0eiuc.execute-api.us-east-1.amazonaws.com/qa/kitchens/${events.kitchen_id}/bookings`,
             {
+                title: events.title,
+                description: events.description,
                 status: status,
+                member_id: events.member_id,
                 start: startValue.toString(),
                 end: endValue.toString(),
                 total_fee: newCost === null ? events.total_fee : parseFloat(newCost).toFixed(2),
@@ -128,7 +139,6 @@ function BookingDetails(props) {
              <Dialog open={open} onClose={handleClose}  PaperProps={{ sx: { width: "100%", height: "30%" } }}>
 <React.Fragment>
 <div style={{backgroundColor: '#5DB6CE', height:'12%' ,color:'white'}} ><Typography align='center' margin="1%">Update Details</Typography></div>
-
 <Select
                 value={status !=='' ? status : "default"}
                 label="Status"
@@ -167,7 +177,8 @@ function BookingDetails(props) {
     </LocalizationProvider>
     </Box>
             <Typography variant='subtitle1'  component="div" sx={{color:'white', background:'#ff9202', textAlign:'center'}} style={{ marginTop:'2.5%', marginLeft: '10%', marginRight:'10%',width: '80%' }}>{/* BaseCost: ${costPerHr} <br/> */}Total Cost/Hr: ${newCost} </Typography>
-            <Button disabled={moment(JSON.parse(startx)) <= moment()} startIcon={<EditIcon />} style={{ backgroundColor: '#5DB6CE', color: '#fff', marginTop:'2%', marginLeft: '10%', marginRight:'10%',width: '80%'  }}  onClick={updateBooking} >Update</Button>
+            <Button disabled={moment(startValue) <= moment() || startValue >= endValue} startIcon={<EditIcon />} style={{ backgroundColor: '#5DB6CE', color: '#fff', marginTop:'2%', marginLeft: '10%', marginRight:'10%',width: '80%'  }}  onClick={updateBooking} >Update</Button>
+            <Dialog open={openWarning} onClose={handleWarningClose}><Alert severity="error">Invalid Date or Time.</Alert></Dialog>
 
 </React.Fragment>
              </Dialog>
