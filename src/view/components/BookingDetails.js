@@ -108,7 +108,7 @@ function BookingDetails(props) {
         setNewCost(totalCost)
     }, [newHours]);
   
-console.log(startValue, endValue)
+
     const updateBooking = () => {
        
         axios.put(`https://yft2x0eiuc.execute-api.us-east-1.amazonaws.com/qa/kitchens/${events.kitchen_id}/bookings/${events.id}`,
@@ -125,7 +125,7 @@ console.log(startValue, endValue)
     return (
        
         < Box sx={{ width: 'auto' }}>
-             <Dialog open={open} onClose={handleClose}  PaperProps={{ sx: { width: "100%", height: "35%" } }}>
+             <Dialog open={open} onClose={handleClose}  PaperProps={{ sx: { width: "100%", height: "30%" } }}>
 <React.Fragment>
 <div style={{backgroundColor: '#5DB6CE', height:'12%' ,color:'white'}} ><Typography align='center' margin="1%">Update Details</Typography></div>
 
