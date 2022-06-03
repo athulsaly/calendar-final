@@ -7,21 +7,17 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import './BookingDetails.css'
 import Divider from '@mui/material/Divider';
 import InfoIcon from '@mui/icons-material/Info';
-/* import axios from 'axios'; */
-import { /* useEffect, */ useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import moment from 'moment';
 import CloseIcon from '@mui/icons-material/Close';
 import EditIcon from '@mui/icons-material/Edit';
 import { Dialog } from '@mui/material';
 import { kitchenStatuses } from '../enum';
-/* import { Input, DatePicker } from 'antd'; */
-/* import locale from "antd/es/date-picker/locale/de_DE"; */
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import axios from 'axios';
 import Alert from '@mui/material/Alert';
-/* const { RangePicker } = DatePicker; */
 
 
 const Img = styled('img')({
@@ -96,10 +92,6 @@ function BookingDetails(props) {
     const kitchen_cost = total/hours
     const kitchen_statuses = kitchenStatuses()
     const [status, setStatus] = useState(events.status)
-   /*  function disabledDate(current) {
-        // Can not select days before today and today
-        return current && current < moment().endOf('day');
-    } */
     const [startValue, setStartValue] = React.useState(JSON.parse(startx))
     const [endValue, setEndValue] = React.useState(JSON.parse(endx))
     const [newCost, setNewCost] = React.useState(null)
@@ -130,7 +122,7 @@ function BookingDetails(props) {
                 total_fee: newCost === null ? events.total_fee : parseFloat(newCost).toFixed(2),
             })
             handleClose()
-          
+            props.onClose()
     }
 
     return (
@@ -144,6 +136,7 @@ function BookingDetails(props) {
                 label="Status"
                 variant="standard"
                 notched="false"
+                disabled={moment(startValue) <= moment()}
                 onChange={(e) => setStatus(e.target.value)}
                 style={{ marginTop:'5%', marginLeft: '10%', marginRight:'10%', color: '#aaa', width: '80%' }}
 
@@ -157,7 +150,10 @@ function BookingDetails(props) {
              <LocalizationProvider dateAdapter={AdapterMoment}>
       <DateTimePicker 
         renderInput={(props) => <TextField {...props} />}
-        label="Start Time"
+        label="Start"
+        disablePast
+        minutesStep="30"
+        disabled={moment(startValue) <= moment()}
         value={startValue}
         onChange={(newValue) => {
           setStartValue(moment(newValue).valueOf());
@@ -168,7 +164,10 @@ function BookingDetails(props) {
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <DateTimePicker
         renderInput={(props) => <TextField {...props} />}
-        label="End Time"
+        label="End"
+        disablePast
+        disabled={moment(startValue) <= moment()}
+        minutesStep="30"
         value={endValue}
         onChange={(newValue) => {
           setEndValue(moment(newValue).valueOf());
@@ -178,7 +177,7 @@ function BookingDetails(props) {
     </Box>
             <Typography variant='subtitle1'  component="div" sx={{color:'white', background:'#ff9202', textAlign:'center'}} style={{ marginTop:'2.5%', marginLeft: '10%', marginRight:'10%',width: '80%' }}>{/* BaseCost: ${costPerHr} <br/> */}Total Cost/Hr: ${newCost} </Typography>
             <Button disabled={moment(startValue) <= moment() || startValue >= endValue} startIcon={<EditIcon />} style={{ backgroundColor: '#5DB6CE', color: '#fff', marginTop:'2%', marginLeft: '10%', marginRight:'10%',width: '80%'  }}  onClick={updateBooking} >Update</Button>
-            <Dialog open={openWarning} onClose={handleWarningClose}><Alert severity="error">Invalid Date or Time.</Alert></Dialog>
+            <Dialog open={openWarning} onClose={handleWarningClose}><Alert severity="error">{moment(startValue) <= moment()? 'Can\'t modify past bookings' : 'Invalid Date or Time.'}</Alert></Dialog>
 
 </React.Fragment>
              </Dialog>
@@ -187,7 +186,7 @@ function BookingDetails(props) {
                     <Grid>
                         <h2 style={{ float: 'left' }} className='heading2'>Booking Details</h2>
                         <Box style={{cursor: 'pointer', color:'#5DB6CE'}} onClick={handleOpen}>
-                        <p style={{ float: 'right', alignItems:'end'/* cursor: 'pointer' */ }} className='heading2'>Edit  <EditIcon style={{display:'unset'}}/></p>
+                        <p style={{ float: 'right', alignItems:'end'/* cursor: 'pointer' */, fontSize:'20px' }} className=''>Update  <EditIcon fontSize='string' style={{display:'unset'}}/></p>
                         </Box>
                     </Grid>
 
