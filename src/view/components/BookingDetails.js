@@ -8,7 +8,7 @@ import './BookingDetails.css'
 import Divider from '@mui/material/Divider';
 import InfoIcon from '@mui/icons-material/Info';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import moment from 'moment';
 import CloseIcon from '@mui/icons-material/Close';
 import EditIcon from '@mui/icons-material/Edit';
