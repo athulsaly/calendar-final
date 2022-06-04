@@ -2,7 +2,7 @@ import React from 'react'
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
-import { Typography, TextField,  Select, MenuItem, Button } from '@mui/material'
+import { Typography, TextField, Select, MenuItem, Button } from '@mui/material'
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import './BookingDetails.css'
 import Divider from '@mui/material/Divider';
@@ -78,39 +78,41 @@ function BookingDetails(props) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [openPickerx, setOpenx] = React.useState(false);
+    const [openPickery, setOpeny] = React.useState(false);
     const [openWarning, setOpenWarning] = React.useState(false)
-    const handleWarningOpen = () =>setOpenWarning(true)
+    const handleWarningOpen = () => setOpenWarning(true)
     const handleWarningClose = () => setOpenWarning(false)
     const startx = events.start === undefined ? '0' : events.start
     const endx = events.end === undefined ? '0' : events.end
-    const duration = moment( moment(JSON.parse(endx))-moment(JSON.parse(startx)))
-    const timeFactor = duration._i ;
+    const duration = moment(moment(JSON.parse(endx)) - moment(JSON.parse(startx)))
+    const timeFactor = duration._i;
     const hours = (timeFactor / 1000 / 60 / 60)
     const total = events.total_fee /* * total_days */
     const service_fee = parseFloat(total * .133).toFixed(2)
     const final = parseFloat(total) + parseFloat(service_fee)
-    const kitchen_cost = total/hours
+    const kitchen_cost = total / hours
     const kitchen_statuses = kitchenStatuses()
     const [status, setStatus] = useState(events.status)
     const [startValue, setStartValue] = React.useState(JSON.parse(startx))
     const [endValue, setEndValue] = React.useState(JSON.parse(endx))
     const [newCost, setNewCost] = React.useState(null)
-    const newDuration = moment( moment(endValue)-moment(startValue))
-    const newTimeFactor = newDuration._i ;
+    const newDuration = moment(moment(endValue) - moment(startValue))
+    const newTimeFactor = newDuration._i;
     const newHours = (newTimeFactor / 1000 / 60 / 60);
     React.useEffect(() => {
         let totalCost = kitchen_cost * newHours
         setNewCost(totalCost)
     }, [newHours]);
     React.useEffect(() => {
-        if(startValue === endValue || moment(startValue) <= moment() || startValue>= endValue ){
+        if (startValue === endValue || moment(startValue) <= moment() || startValue >= endValue) {
             handleWarningOpen()
         }
     }, [status, startValue, endValue])
-    
+
     console.log(events.title)
     const updateBooking = () => {
-       /*  /${events.id} */
+        /*  /${events.id} */
         axios.post(`https://yft2x0eiuc.execute-api.us-east-1.amazonaws.com/qa/kitchens/${events.kitchen_id}/bookings`,
             {
                 title: events.title,
@@ -121,72 +123,80 @@ function BookingDetails(props) {
                 end: endValue.toString(),
                 total_fee: newCost === null ? events.total_fee : parseFloat(newCost).toFixed(2),
             })
-            handleClose()
-            props.onClose()
+        handleClose()
+        props.onClose()
     }
 
     return (
-       
+
         < Box sx={{ width: 'auto' }}>
-             <Dialog open={open} onClose={handleClose}  PaperProps={{ sx: { width: "100%", height: "30%" } }}>
-<React.Fragment>
-<div style={{backgroundColor: '#5DB6CE', height:'12%' ,color:'white'}} ><Typography align='center' margin="1%">Update Details</Typography></div>
-<Select
-                value={status !=='' ? status : "default"}
-                label="Status"
-                variant="standard"
-                notched="false"
-                disabled={moment(startValue) <= moment()}
-                onChange={(e) => setStatus(e.target.value)}
-                style={{ marginTop:'5%', marginLeft: '10%', marginRight:'10%', color: '#aaa', width: '80%' }}
+            <Dialog open={open} onClose={handleClose} PaperProps={{ sx: { width: "100%", height: "30%" } }}>
+                <React.Fragment>
+                    <div style={{ backgroundColor: '#5DB6CE', height: '12%', color: 'white' }} ><Typography align='center' margin="1%">Update Details</Typography></div>
+                    <Select
+                        value={status !== '' ? status : "default"}
+                        label="Status"
+                        variant="standard"
+                        notched="false"
+                        disabled={moment(startValue) <= moment()}
+                        onChange={(e) => setStatus(e.target.value)}
+                        style={{ marginTop: '5%', marginLeft: '10%', marginRight: '10%', color: '#aaa', width: '80%' }}
 
-            >
-                <MenuItem value="default"  > -- Status -- </MenuItem>
-                {
-                    Object.keys(kitchen_statuses).map((status) => <MenuItem key={status} value={kitchen_statuses[status].value} >{kitchen_statuses[status].label}</MenuItem>)
-                }
-            </Select>
-            <Box justifyContent="space-around" sx={{marginLeft: '10%', marginRight: '10%', marginTop:'5%'}}>
-             <LocalizationProvider dateAdapter={AdapterMoment}>
-      <DateTimePicker 
-        renderInput={(props) => <TextField {...props} />}
-        label="Start"
-        disablePast
-        minutesStep="30"
-        disabled={moment(startValue) <= moment()}
-        value={startValue}
-        onChange={(newValue) => {
-          setStartValue(moment(newValue).valueOf());
-        }}
-      
-      />
-    </LocalizationProvider>
-    <LocalizationProvider dateAdapter={AdapterMoment}>
-      <DateTimePicker
-        renderInput={(props) => <TextField {...props} />}
-        label="End"
-        disablePast
-        disabled={moment(startValue) <= moment()}
-        minutesStep="30"
-        value={endValue}
-        onChange={(newValue) => {
-          setEndValue(moment(newValue).valueOf());
-        }}
-      />
-    </LocalizationProvider>
-    </Box>
-            <Typography variant='subtitle1'  component="div" sx={{color:'white', background:'#ff9202', textAlign:'center'}} style={{ marginTop:'2.5%', marginLeft: '10%', marginRight:'10%',width: '80%' }}>{/* BaseCost: ${costPerHr} <br/> */}Total Cost/Hr: ${newCost} </Typography>
-            <Button disabled={moment(startValue) <= moment() || startValue >= endValue} startIcon={<EditIcon />} style={{ backgroundColor: '#5DB6CE', color: '#fff', marginTop:'2%', marginLeft: '10%', marginRight:'10%',width: '80%'  }}  onClick={updateBooking} >Update</Button>
-            <Dialog open={openWarning} onClose={handleWarningClose}><Alert severity="error">{moment(startValue) <= moment()? 'Can\'t modify past bookings' : 'Invalid Date or Time.'}</Alert></Dialog>
+                    >
+                        <MenuItem value="default"  > -- Status -- </MenuItem>
+                        {
+                            Object.keys(kitchen_statuses).map((status) => <MenuItem key={status} value={kitchen_statuses[status].value} >{kitchen_statuses[status].label}</MenuItem>)
+                        }
+                    </Select>
+                    <Box justifyContent="" sx={{ marginLeft: '10%', marginRight: '10%', marginTop: '5%', display:'flex',  justifyContent:'space-evenly' }}>
+                        <LocalizationProvider dateAdapter={AdapterMoment}>
+                            <DateTimePicker
+                                open={openPickerx}
+                                onOpen={() => setOpenx(true)}
+                                onClose={() => setOpenx(false)}
+                                disableOpenPicker
+                                renderInput={(props) => <TextField {...props} onClick={(e) => setOpenx(true)} />}
+                                label="Start"
+                                disablePast
+                                minutesStep="30"
+                                disabled={moment(startValue) <= moment()}
+                                value={startValue}
+                                onChange={(newValue) => {
+                                    setStartValue(moment(newValue).valueOf());
+                                }}
+                            />
+                        </LocalizationProvider>
+            
+                        <LocalizationProvider dateAdapter={AdapterMoment}>
+                            <DateTimePicker
+                                open={openPickery}
+                                onOpen={() => setOpeny(true)}
+                                onClose={() => setOpeny(false)}
+                                disableOpenPicker
+                                renderInput={(props) => <TextField {...props} onClick={(e) => setOpeny(true)} />}
+                                label="End"
+                                disablePast
+                                disabled={moment(startValue) <= moment()}
+                                minutesStep="30"
+                                value={endValue}
+                                onChange={(newValue) => {
+                                    setEndValue(moment(newValue).valueOf());
+                                }}
+                            />
+                        </LocalizationProvider>
+                    </Box>
+                    <Typography variant='subtitle1' component="div" sx={{ color: 'white', background: '#ff9202', textAlign: 'center' }} style={{ marginTop: '2.5%', marginLeft: '10%', marginRight: '10%', width: '80%' }}>{/* BaseCost: ${costPerHr} <br/> */}Total Cost/Hr: ${newCost} </Typography>
+                    {moment(startValue) <= moment() || startValue >= endValue ? null : <Button disabled={moment(startValue) <= moment() || startValue >= endValue} startIcon={<EditIcon />} style={{ backgroundColor: '#5DB6CE', color: '#fff', marginTop: '2%', marginLeft: '10%', marginRight: '10%', width: '80%' }} onClick={updateBooking} >Update</Button>
+                    }   <Dialog open={openWarning} onClose={handleWarningClose}><Alert severity="error">{moment(startValue) <= moment() ? 'Can\'t modify past bookings' : 'Invalid Date or Time.'}</Alert></Dialog>
 
-</React.Fragment>
-             </Dialog>
-                        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                </React.Fragment>
+            </Dialog>
+            <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid item xs={6}>
                     <Grid>
                         <h2 style={{ float: 'left' }} className='heading2'>Booking Details</h2>
-                        <Box style={{cursor: 'pointer', color:'#5DB6CE'}} onClick={handleOpen}>
-                        <p style={{ float: 'right', alignItems:'end'/* cursor: 'pointer' */, fontSize:'20px' }} className=''>Update  <EditIcon fontSize='string' style={{display:'unset'}}/></p>
+                        <Box style={{ cursor: 'pointer', color: '#5DB6CE' }} onClick={handleOpen}>
+                            <p style={{ float: 'right', alignItems: 'end'/* cursor: 'pointer' */, fontSize: '20px' }} className=''>Update  <EditIcon fontSize='string' style={{ display: 'unset' }} /></p>
                         </Box>
                     </Grid>
 
@@ -208,8 +218,8 @@ function BookingDetails(props) {
                                 </div>
                                 <br />
                                 <Box textAlign="center" alignSelf="center" className='title2' color={generateTextColor(events.status)} backgroundColor={generateText(events.status)} >
-                                        {events.status}
-                                    </Box>
+                                    {events.status}
+                                </Box>
                             </Grid>
 
 
@@ -375,7 +385,7 @@ function BookingDetails(props) {
             </Grid >
 
         </Box >
-        
+
 
     )
 }

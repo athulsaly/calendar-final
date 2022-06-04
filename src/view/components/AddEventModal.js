@@ -8,7 +8,6 @@ import { Dialog } from '@mui/material';
 
 function AddEventModal(props) {
     const eventStart = props.eventStart
-    const eventEnd = props.eventEnd
     const [openWarning, setOpenWarning] = React.useState(false)
     const handleWarningOpen = () =>setOpenWarning(true)
     const handleWarningClose = () => setOpenWarning(false)
